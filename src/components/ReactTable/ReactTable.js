@@ -221,6 +221,7 @@ const ReactTable = (props) => {
 		totalColumnsWidth,
 		toggleHideColumn,
 		resetResizing,
+		toggleGroupBy,
 	} = useTable(
 		{
 			columns,
@@ -354,7 +355,12 @@ const ReactTable = (props) => {
 		});
 		return unique;
 	};
-
+	const clear = () => {
+		resetResizing();
+		localSearchIds.map(el => {
+			toggleGroupBy(el, false);
+		})
+	}
 	return (
 		<div className={classes.Table}>
 			{/* <select onChange={dropDownHandler}>
@@ -364,6 +370,7 @@ const ReactTable = (props) => {
 				<option value="50000">50,000</option>
 				<option value="1000000">1,000,000</option>
 			</select> */}
+			<button onClick={clear} >clear</button>
 			<table {...getTableProps()} className={classes.table}>
 				<thead>
 					{headerGroups.map((headerGroup) => (

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import icon from '../../assets/svg/all.svg';
 import classes from './DropDown.module.css';
 
@@ -26,12 +26,7 @@ let BTNCheck = null;
 let toRender = null;
 
 
-const contentDropCheck = (allColumns, hiddenCol) => {
-	BTNMain = classes.table__menu__item__btn__closed;
-	BTNSearch = classes.table__menu__item__btn__closed;
-	BTNCheck = classes.table__menu__item__btn__open;
-	toRender = <Check columns={allColumns} hiddenCol={hiddenCol} />
-};
+
 const DropDown = (props) => {
 
 	const displayDropDown = (id) => {
@@ -107,18 +102,23 @@ const DropDown = (props) => {
 			contentDropSearchInput={contentDropSearchInput}
 		/>;
 	};
+	const contentDropCheck = (allColumns, hiddenCol) => {
+		BTNMain = classes.table__menu__item__btn__closed;
+		BTNSearch = classes.table__menu__item__btn__closed;
+		BTNCheck = classes.table__menu__item__btn__open;
+		toRender = <Check columns={allColumns} hiddenCol={hiddenCol} />
+	};
 	const eventHandlers = useMemo(() => ({
 		onFocus: () => {
 			window.clearTimeout(timeOut)
 		},
 		onBlur: () => {
-			timeOut = setTimeout(hideAllDropDown,1)
+			timeOut = setTimeout(hideAllDropDown, 1)
 		}
 	}), []);
-
 	return (
-		<div 
-		{...eventHandlers}
+		<div
+			{...eventHandlers}
 		>
 			<button
 				onClick={() => {

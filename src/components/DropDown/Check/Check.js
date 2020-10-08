@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CheckBox from '../CheckBox/CheckBox';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
@@ -109,8 +109,6 @@ let arrToSend = [
 
 const Check = props => {
 
-
-    let arrHeader = [];
     let boolChecked;
     const makeArrayToDisplay = () => {
         boolChecked = [];
@@ -126,7 +124,7 @@ const Check = props => {
     if (props.hiddenCol.length === 0) {
         arrToReturn = [];
         initarr.map((el) => {
-            arrToReturn.push({ Header: el.Header,accessor: el.accessor, val: false })
+            arrToReturn.push({ Header: el.Header, accessor: el.accessor, val: false })
         })
         arrToReturn.push(true);
     } else {
@@ -147,17 +145,17 @@ const Check = props => {
                 }
             }
         });
-        console.log(arrToReturn)
-        props.onChangeColumns(arrToReturn)
+      props.onChangeColumns(arrToReturn)
     }
-    return <div style={{ width: '100%', height: '100%', backgroundColor: '#354f69' }}>
+    return <div style={{ width: '100%', height: '85%', backgroundColor: '#354f69'}}>
         {boolChecked.map((el, i) => {
             return <CheckBox
-                text={el.Header}
-                checked={el.checked}
-                handler={editColumns}
-                key={i}
-            />
+                    text={el.Header}
+                    checked={el.checked}
+                    handler={editColumns}
+                    key={i}
+                />
+     
         })}
     </div>
 
