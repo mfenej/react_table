@@ -11,32 +11,32 @@ const fetchClientsSuccess = (clients) => {
 	};
 };
 
-// const createTimestamp = () => {
-// 	const currentDate = new Date().toLocaleString();
+const createTimestamp = () => {
+	const currentDate = new Date().toLocaleString();
 
-// 	return currentDate;
-// };
+	return currentDate;
+};
 
-// const createClients = (num) => {
-// 	const length = num;
-// 	const clients = [
-// 		{
-// 			code: 'jesse',
-// 			label: 'User',
-// 			validFrom: 'timestamp',
-// 			validTo: 'timestamp',
-// 			airportCode: 'UAE#2323',
-// 			remarks: 'something',
-// 		},
-// 		{
-// 			code: 'walter',
-// 			label: 'User',
-// 			validFrom: 'timestamp',
-// 			validTo: 'timestamp',
-// 			airportCode: 'UAE#2323',
-// 			remarks: 'thing',
-// 		},
-// 	];
+const createClients = (num) => {
+	const length = num;
+	const clients = [
+		{
+			code: 'jesse',
+			label: 'User',
+			validFrom: '1-1-2010',
+			validTo: '1-2-2010',
+			airportCode: 'Aireport 1',
+			remarks: 'something',
+		},
+		{
+			code: 'walter',
+			label: 'Admin',
+			validFrom: '1-11-2010',
+			validTo: '1-12-2010',
+			airportCode: 'Aireport 2',
+			remarks: 'thing',
+		},
+	];
 
 // 	for (let i = 0; i < length; i++) {
 // 		const code = uniqid();
@@ -54,32 +54,32 @@ const fetchClientsSuccess = (clients) => {
 
 // 		clients.push(client);
 // 	}
-// 	return clients;
-// };
+	return clients;
+};
 
 export const fetchClients = (num = 30) => {
 	return async (dispatch) => {
 		// testing
-		// const clients = createClients(num);
-		// dispatch(fetchClientsSuccess(clients));
+		const clients = createClients(num);
+		dispatch(fetchClientsSuccess(clients));
 
-		try {
-			const res = await axios.get(
-				'https://react-table-53938.firebaseio.com/clients.json'
-			);
+		// try {
+		// 	const res = await axios.get(
+		// 		'https://react-table-53938.firebaseio.com/clients.json'
+		// 	);
 
-			const fetchedClients = [];
+	// 		const fetchedClients = [];
 
-			for (let key in res.data) {
-				fetchedClients.push({
-					id: key,
-					...res.data[key],
-				});
-			}
-			dispatch(fetchClientsSuccess(fetchedClients));
-		} catch (error) {
-			console.log(error);
-		}
+	// 		for (let key in res.data) {
+	// 			fetchedClients.push({
+	// 				id: key,
+	// 				...res.data[key],
+	// 			});
+	// 		}
+	// 		dispatch(fetchClientsSuccess(fetchedClients));
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
 	};
 };
 
