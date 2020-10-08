@@ -42,14 +42,17 @@ const ReactTable = (props) => {
 	let columns = React.useMemo(
 		() => [
 			{
+				id:'code',
 				Header: 'code',
 				accessor: 'colCode', // accessor is the "key" in the data
 			},
 			{
+				id: 'label',
 				Header: 'label',
 				accessor: 'colLable', //use the to put data in this colomn like in the data const
 			},
 			{
+				id:'valid form',
 				Header: 'valid form',
 				accessor: 'colValidForm',
 				Cell: (props) => {
@@ -62,6 +65,7 @@ const ReactTable = (props) => {
 				},
 			},
 			{
+				id: 'valid to',
 				Header: 'valid to',
 				accessor: 'colValidTo',
 				Cell: (props) => {
@@ -75,10 +79,12 @@ const ReactTable = (props) => {
 				},
 			},
 			{
+				id: 'airport iata',
 				Header: 'airport iata',
 				accessor: 'colAirport',
 			},
 			{
+				id: 'remarks',
 				Header: 'remarks',
 				accessor: 'colRemarks',
 			},
@@ -220,8 +226,8 @@ const ReactTable = (props) => {
 		prepareRow,
 		totalColumnsWidth,
 		toggleHideColumn,
-		resetResizing,
 		toggleGroupBy,
+		resetResizing,
 	} = useTable(
 		{
 			columns,
@@ -355,11 +361,18 @@ const ReactTable = (props) => {
 		});
 		return unique;
 	};
+	const doResetResizing = () => {
+		resetResizing();
+	}
 	const clear = () => {
 		resetResizing();
-		localSearchIds.map(el => {
-			toggleGroupBy(el, false);
-		})
+		toggleGroupBy('code', true);
+		// setTimeout(() => {
+		// 	localSearchIds.map(el => {
+		// 		toggleGroupBy(el, false);
+		// 	})
+		// },1000)
+
 	}
 	return (
 		<div className={classes.Table}>
