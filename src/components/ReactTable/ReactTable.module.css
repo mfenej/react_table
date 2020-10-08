@@ -1,0 +1,251 @@
+table {
+	width: 100%;
+	height: 100%;
+	border-spacing: 0;
+	box-shadow: none;
+	display: block;
+}
+
+.Table {
+	display: inline-block;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	background-color: #fff;
+	width: 50%;
+	border-radius: 3px;
+}
+
+.Table::-webkit-scrollbar {
+	width: 0.7rem;
+	height: 0.7rem;
+}
+
+.Table::-webkit-scrollbar-thumb {
+	background: #345068;
+	border-radius: 1rem;
+}
+.resizer {
+        display: inline-block;
+        background: #b3bcc4;
+        width: 2px;
+        height: 100%;
+        position: absolute;
+        right: -0.5rem;
+        top: 0;
+        transform: translateX(50%);
+        z-index: 1;
+        touch-action:none;
+      }
+
+.table__header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 3rem;
+
+	position: relative;
+}
+
+.table__menu__item {
+	text-transform: uppercase;
+	color: #39648f;
+	font-size: 1rem;
+	font-weight: 700;
+	cursor: pointer;
+}
+/*  */
+.table__menu__item__lable {
+	margin: 0.2rem 1rem;
+}
+/*  */
+.table__menu__item-lable-code {
+	padding: 0.2rem 4.5rem;
+}
+
+.table__menu__item-lable-code-icon {
+	transition: all 0.2s;
+	position: absolute;
+	height: 1.5rem;
+	width: 1.5rem;
+	fill: currentColor;
+}
+.table__menu__item-lable-lable {
+	padding: 0.2rem 4rem;
+}
+.table__menu__item-lable-lable-icon {
+	transition: all 0.2s;
+	position: absolute;
+	height: 1.5rem;
+	width: 1.5rem;
+	fill: currentColor;
+}
+.table__menu__item-lable-validfrom {
+	padding: 0.2rem 2.5rem;
+}
+.table__menu__item-lable-validfrom-icon {
+	transition: all 0.2s;
+	position: absolute;
+	height: 1.5rem;
+	width: 1.5rem;
+	fill: currentColor;
+}
+.table__menu__item-lable-validto {
+	padding: 0.2rem 3.5rem;
+}
+.table__menu__item-lable-validto-icon {
+	transition: all 0.2s;
+	position: absolute;
+	height: 1.5rem;
+	width: 1.5rem;
+	fill: currentColor;
+}
+.table__menu__item-lable-aireport {
+	padding: 0.2rem 2rem;
+}
+.table__menu__item-lable-aireport-icon {
+	transition: all 0.2s;
+	position: absolute;
+	height: 1.5rem;
+	width: 1.5rem;
+	fill: currentColor;
+}
+.table__menu__item-lable-remarks {
+	padding: 0.2rem 3.5rem;
+}
+.table__menu__item-lable-remarks-icon {
+	transition: all 0.2s;
+	position: absolute;
+	height: 1.5rem;
+	width: 1.5rem;
+	fill: currentColor;
+}
+
+.table__menu__item__btn {
+	border: 0;
+	background-color: transparent;
+	height: min-content;
+	position: absolute;
+	right: -0.2rem;
+	top: 6px;
+	cursor: pointer;
+}
+
+.table__menu__item__btnIcon {
+	transition: all 0.2s;
+	height: 1.5rem;
+	width: 1.5rem;
+	fill: #b3bcc4;
+}
+.table__search {
+	display: flex;
+	align-items: stretch;
+}
+.table__searchInput {
+	color: #fff;
+	background-color: #d9e5ed;
+	border: 0;
+	padding: 0.4rem;
+	text-align: center;
+}
+/* .table__searchInput:not(:last-of-type) {
+	width: 15rem;
+} */
+.table__searchInput:last-of-type {
+	width: 14.2rem;
+}
+.table__searchInput:hover {
+	background-color: #47729c;
+}
+.table__searchInput:focus {
+	background-color: #47729c;
+	outline: none;
+}
+.table__search__xbtn {
+	background-color: #d9e5ed;
+	border: 0;
+}
+.table__search__xbtn:focus {
+	outline: none;
+}
+.table__search__xbtnIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: black;
+	padding: 0.2rem;
+}
+.table__search__xbtn:hover {
+	background-color: #47729c;
+}
+.table__search__xbtn:hover .table__search__xbtn-icon {
+	fill: #fff;
+}
+.table__content__cell {
+	cursor: pointer;
+	width: 9rem;
+	height: 1rem;
+	padding: 0.5rem;
+	text-align: center;
+	font-size: 1rem;
+	font-weight: 600;
+}
+/* .table__content__row :not(:last-child) {
+    margin-right: 1px;
+} */
+.table__content__row__item {
+	padding: 0.2rem;
+	height: 2rem;
+	width: 25%;
+	text-align: center;
+	line-height: 2.3rem;
+	font-size: 1rem;
+	font-weight: 300;
+	background-color: #e3e9ec;
+	color: #39648f;
+}
+.table__content__row__item-code {
+	text-transform: uppercase;
+}
+
+.noselect {
+	-webkit-touch-callout: none;
+	/* iOS Safari */
+	-webkit-user-select: none;
+	/* Safari */
+	-khtml-user-select: none;
+	/* Konqueror HTML */
+	-moz-user-select: none;
+	/* Old versions of Firefox */
+	-ms-user-select: none;
+	/* Internet Explorer/Edge */
+	user-select: none;
+	/* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+table tbody tr {
+	color: #39648f;
+}
+table tbody tr:nth-child(even) {
+	background-color: #e6ebee;
+}
+
+.List {
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.List::-webkit-scrollbar {
+	width: 0.7rem;
+	height: 0.7rem;
+}
+
+.List::-webkit-scrollbar-thumb {
+	background: #345068;
+	border-radius: 1rem;
+}
+
+.Search__row {
+	height: max-content;
+	display: flex;
+	background-color: #d9e5ed;
+}

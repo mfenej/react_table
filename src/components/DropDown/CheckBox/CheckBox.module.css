@@ -1,0 +1,11 @@
+.container{
+color:#b3bcc4;
+margin-left: 1rem;
+font-size: 1rem;
+display: flex;
+align-items: center;
+}
+
+.checkBox{
+cursor: pointer;
+}

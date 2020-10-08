@@ -1,0 +1,45 @@
+.topMenuBtn {
+	 font-size: 1.4rem;
+	 font-weight: 100;
+	 padding: 0.5rem;
+	 cursor: pointer;
+	 border: 0;
+	 color: rgba(255, 255, 255, .65);
+	 background-color: transparent;
+	 border-radius: 3px;
+	 display: flex;
+	 align-items: center;
+}
+ .topMenuBtnTeminal {
+	 border-bottom: 3px solid #4ca54c;
+}
+ .topMenuBtnTeminalIcon {
+	 transition: all 0.2s;
+	 height: 1.3rem;
+	 width: 1.3rem;
+	 fill: rgba(255, 255, 255, .65);
+	 margin-right: 0.5rem;
+}
+ .topMenuBtnTeminal:focus {
+	 outline: none;
+}
+ .topMenuBtnAdd {
+	 margin-left: 10rem;
+	 text-align: center;
+	 padding: 0.5rem 1rem;
+}
+ .topMenuBtnAddIcon {
+	 transition: all 0.2s;
+	 height: 1.8rem;
+	 width: 1.8rem;
+	 fill: #4ca54c;
+}
+ .topMenuBtnAdd:hover {
+	 background-color: #4ca54c;
+}
+ .topMenuBtnAdd:hover .topMenuBtnAddIcon {
+	 fill: #fff;
+}
+ .topMenuBtnAdd:focus {
+	 outline: none;
+}

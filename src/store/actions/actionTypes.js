@@ -1,0 +1,15 @@
+export const FETCH_CLIENTS = 'FETCH_CLIENTS';
+
+export const ADD_CLIENT = 'ADD_CLIENT';
+
+export const UPDATE_CLIENT = 'UPDATE_CLIENT';
+
+export const DELETE_CLIENT = 'DELETE_CLIENT';
+
+export const EXTRACT_CLIENT = 'EXTRACT_CLIENT';
+
+export const DISPLAY_FORM = 'DISPLAY_FORM';
+
+export const EXTRACT_VAL = 'EXTRACT_VAL';
+
+export const EXTRACT_COLUMNS = 'EXTRACT_COLUMNS';

@@ -1,0 +1,481 @@
+.ReduxForm {
+	background-color: #fff;
+	width: 50%;
+	height: 100%;
+	border-radius: 3px;
+	margin: 0 1%;
+}
+
+.details__menu {
+	display: flex;
+	align-items: flex-start;
+}
+.details__menu__icon {
+	margin-right: 25%;
+	display: flex;
+}
+.details__menu__icon1 {
+	height: 2.5rem;
+	width: 2.5rem;
+	fill: #354f69;
+	margin-right: 0;
+	padding: 1rem;
+}
+.details__menu__icon2 {
+	position: relative;
+	right: 3rem;
+	top: 2rem;
+	height: 2rem;
+	width: 2rem;
+	fill: #354f69;
+	padding: 1rem;
+}
+.details__menu__btn {
+	border: 0;
+	border-radius: 5px;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	background-color: transparent;
+	text-transform: uppercase;
+	padding: 1rem 2rem;
+	transition: all 0.2s;
+	display: flex;
+	font-size: 1rem;
+}
+.details__menu__btnAudit {
+	color: #d39c50;
+}
+.details__menu__btnAudit:hover {
+	color: #fff;
+	background-color: #d39c50;
+}
+.details__menu__btnAudit:hover svg {
+	fill: #fff;
+}
+.details__menu__btnAuditIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #d39c50;
+	margin-right: 0.5rem;
+}
+.details__menu__btnAudit:focus {
+	outline: none;
+}
+.details__menu__btnDelete {
+	grid-column: 0.8;
+	color: #d73e3e;
+}
+.details__menu__btnDelete:hover {
+	color: #fff;
+	background-color: #d73e3e;
+}
+.details__menu__btnDelete:hover svg {
+	fill: #fff;
+}
+.details__menu__btnDeleteIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #d73e3e;
+	margin-right: 0.5rem;
+}
+.details__menu__btnDelete:focus {
+	outline: none;
+}
+.details__menu__btnCopy {
+	grid-column: 0.8333333333;
+	color: #6ea3c4;
+}
+.details__menu__btnCopy:hover {
+	color: #fff;
+	background-color: #6ea3c4;
+}
+.details__menu__btnCopy:hover svg {
+	fill: #fff;
+}
+.details__menu__btnCopyIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #6ea3c4;
+	margin-right: 0.5rem;
+}
+.details__menu__btnCopy:focus {
+	outline: none;
+}
+.details__menu__btnEdit {
+	grid-column: 0.8333333333;
+	color: #81bf81;
+}
+.details__menu__btnEdit:hover {
+	color: #fff;
+	background-color: #81bf81;
+}
+.details__menu__btnEdit:hover svg {
+	fill: #fff;
+}
+.details__menu__btnEditIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #81bf81;
+	margin-right: 0.5rem;
+}
+.details__menu__btnEdit:focus {
+	outline: none;
+}
+.details__menu__btnCancle {
+	display: none;
+	margin-left: 25%;
+	color: #d73e3e;
+}
+.details__menu__btnCancle:hover {
+	color: #fff;
+	background-color: #d73e3e;
+}
+.details__menu__btnCancle:hover svg {
+	fill: #fff;
+}
+.details__menu__btnCancleIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #d73e3e;
+	margin-right: 0.5rem;
+}
+.details__menu__btnCancle:focus {
+	outline: none;
+}
+.details__menu__btnSave {
+	display: none;
+	color: #81bf81;
+}
+.details__menu__btnSave:hover {
+	color: #fff;
+	background-color: #81bf81;
+}
+.details__menu__btnSave:hover svg {
+	fill: #fff;
+}
+.details__menu__btnSaveIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #81bf81;
+	margin-right: 0.5rem;
+}
+.details__menu__btnSave:focus {
+	outline: none;
+}
+.description {
+	display: flex;
+	flex-wrap: wrap;
+}
+.description__item {
+	width: 46%;
+	margin-left: 2%;
+}
+.description__item__dateholder {
+	display: inline-flex;
+	width: 95%;
+}
+.description__item__header {
+	text-transform: uppercase;
+	color: #687d94;
+	font-weight: 600;
+	font-size: 1rem;
+	margin-top: 1rem;
+}
+.description__item__textbox {
+	width: 95%;
+	padding: 0.7rem;
+	font-size: 0.85rem;
+	background-color: #f2f5f7;
+	color: #687d94;
+	border-radius: 3px;
+	border: 0;
+	resize: none;
+}
+.description__item__textbox:focus {
+	outline: none;
+}
+.description__item__select {
+	cursor: pointer;
+	width: 100%;
+	padding: 0.5rem;
+	font-size: 0.85rem;
+	background-color: #f2f5f7;
+	color: rgba(104, 125, 148, 0.75);
+	border-radius: 3px;
+	border: 0;
+}
+.description__item__select:focus {
+	outline: none;
+}
+.description__item__datepickerConatiner {
+	width: max-content;
+	height: 1rem;
+	background-color: transparent;
+	border-radius: 3px;
+	display: flex;
+}
+.description__item__datepickerArea {
+	margin-left: 1.5rem;
+}
+.remarks {
+	resize: none;
+	font-size: 1.2rem !important;
+}
+
+.add__details__menu {
+	display: flex;
+	align-items: flex-start;
+}
+.add__details__menu__icon {
+	margin-right: 25%;
+	display: flex;
+}
+.add__details__menu__icon1 {
+	height: 2.5rem;
+	width: 2.5rem;
+	fill: #354f69;
+	margin-right: 0;
+	padding: 1rem;
+}
+.add__details__menu__icon2 {
+	position: relative;
+	right: 3rem;
+	top: 2rem;
+	height: 2rem;
+	width: 2rem;
+	fill: #354f69;
+	padding: 1rem;
+}
+.add__details__menu__btn {
+	border: 0;
+	border-radius: 5px;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	background-color: transparent;
+	text-transform: uppercase;
+	padding: 1rem 2rem;
+	transition: all 0.2s;
+	display: flex;
+	font-size: 1rem;
+}
+.add__details__menu__btnAudit {
+	color: #d39c50;
+	display: none;
+}
+.add__details__menu__btnAudit:hover {
+	color: #fff;
+	background-color: #d39c50;
+}
+.add__details__menu__btnAudit:hover svg {
+	fill: #fff;
+}
+.add__details__menu__btnAuditIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #d39c50;
+	margin-right: 0.5rem;
+}
+.add__details__menu__btnAudit:focus {
+	outline: none;
+}
+.add__details__menu__btnDelete {
+	grid-column: 0.8;
+	color: #d73e3e;
+	display: none;
+}
+.add__details__menu__btnDelete:hover {
+	color: #fff;
+	background-color: #d73e3e;
+}
+.add__details__menu__btnDelete:hover svg {
+	fill: #fff;
+}
+.add__details__menu__btnDeleteIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #d73e3e;
+	margin-right: 0.5rem;
+}
+.add__details__menu__btnDelete:focus {
+	outline: none;
+}
+.add__details__menu__btnCopy {
+	grid-column: 0.8333333333;
+	color: #6ea3c4;
+	display: none;
+}
+.add__details__menu__btnCopy:hover {
+	color: #fff;
+	background-color: #6ea3c4;
+}
+.add__details__menu__btnCopy:hover svg {
+	fill: #fff;
+}
+.add__details__menu__btnCopyIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #6ea3c4;
+	margin-right: 0.5rem;
+}
+.add__details__menu__btnCopy:focus {
+	outline: none;
+}
+.add__details__menu__btnEdit {
+	grid-column: 0.8333333333;
+	color: #81bf81;
+	display: none;
+}
+.add__details__menu__btnEdit:hover {
+	color: #fff;
+	background-color: #81bf81;
+}
+.add__details__menu__btnEdit:hover svg {
+	fill: #fff;
+}
+.add__details__menu__btnEditIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #81bf81;
+	margin-right: 0.5rem;
+}
+.add__details__menu__btnEdit:focus {
+	outline: none;
+}
+.add__details__menu__btnCancle {
+	display: block;
+	margin-left: 25%;
+	color: #d73e3e;
+}
+.add__details__menu__btnCancle:hover {
+	color: #fff;
+	background-color: #d73e3e;
+}
+.add__details__menu__btnCancle:hover svg {
+	fill: #fff;
+}
+.add__details__menu__btnCancleIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #d73e3e;
+	margin-right: 0.5rem;
+}
+.add__details__menu__btnCancle:focus {
+	outline: none;
+}
+.add__details__menu__btnSave {
+	display: block;
+	color: #81bf81;
+}
+.add__details__menu__btnSave:hover {
+	color: #fff;
+	background-color: #81bf81;
+}
+.add__details__menu__btnSave:hover svg {
+	fill: #fff;
+}
+.add__details__menu__btnSaveIcon {
+	transition: all 0.2s;
+	height: 1.3rem;
+	width: 1.3rem;
+	fill: #81bf81;
+	margin-right: 0.5rem;
+}
+.add__details__menu__btnSave:focus {
+	outline: none;
+}
+.add__description {
+	display: flex;
+	flex-wrap: wrap;
+}
+.add__description__item {
+	width: 46%;
+	margin-left: 2%;
+}
+.add__description__item__dateholder {
+	display: inline-flex;
+	width: 95%;
+}
+.add__description__item__header {
+	text-transform: uppercase;
+	color: #687d94;
+	font-weight: 600;
+	font-size: 1rem;
+	margin-top: 1rem;
+}
+.add__description__item__textbox {
+	width: 95%;
+	padding: 0.7rem;
+	font-size: 0.85rem;
+	background-color: #354f69;
+	color: #fff;
+	border-radius: 3px;
+	border: 0;
+	resize: none;
+}
+.add__description__item__textbox:focus {
+	outline: none;
+}
+.add__description__item__select {
+	cursor: pointer;
+	width: 100%;
+	padding: 0.5rem;
+	font-size: 0.85rem;
+	background-color: #354f69;
+	color: #fff;
+	border-radius: 3px;
+	border: 0;
+}
+.add__description__item__select:focus {
+	outline: none;
+}
+.add__description__item__datepickerConatiner {
+	width: max-content;
+	height: 1rem;
+	padding-left: 1.5rem;
+	border-radius: 3px;
+	display: flex;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+	height: 2rem;
+	font-size: 1.1rem;
+	border: none;
+	background-color: #f2f5f7;
+	color: #536a83;
+	border-radius: 3px;
+	outline: none;
+	margin-right: 3px;
+}
+
+.add__react-datepicker-wrapper,
+.add__react-datepicker__input-container,
+.add__react-datepicker__input-container input {
+	height: 2rem;
+	font-size: 1.1rem;
+	border: none;
+	background-color: #354f69;
+	color: #fff;
+	border-radius: 3px;
+	outline: none;
+	margin-right: 3px;
+}
+
+span {
+	color: red;
+	text-transform: uppercase;
+	font-size: 1rem;
+	font-weight: bold;
+}

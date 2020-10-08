@@ -1,0 +1,68 @@
+.topMenu {
+	width: 90%;
+	margin-top: 3rem;
+	display: flex;
+	align-items: center;
+}
+.topMenuItem {
+	margin-left: 3rem;
+	padding: 0.5rem;
+}
+.topMenuItemSelect {
+	font-size: 1rem;
+	font-weight: 100;
+	padding: 0.8rem 0;
+	padding-right: 10rem;
+	cursor: pointer;
+	background-color: #354f69;
+	color: rgba(255, 255, 255, 0.65);
+	border-radius: 3px;
+	border: 0;
+}
+.topMenuItemSelect:focus {
+	outline: none;
+}
+
+.topMenuSearch {
+	margin-left: 1.5rem;
+}
+.topMenuInput {
+	/*
+	height: 0.9rem;
+	padding: 1rem;
+	*/
+	background-color: #354f69;
+	color: rgba(255, 255, 255, 0.65);
+	border-radius: 3px;
+	border: none;
+	font-size: 1.3rem;
+	font-weight: 100;
+
+	padding: 0.7rem 2rem;
+	width: 80%;
+
+	margin-left: -2.5rem;
+
+	z-index: 1;
+}
+.topMenuInput:focus {
+	outline: none;
+}
+
+.topMenuInput::-webkit-input-placeholder {
+	color: rgba(255, 255, 255, 0.65);
+	padding-left: 1.5rem;
+}
+.topMenuInput:hover::-webkit-input-placeholder,
+.topMenuInput:focus::-webkit-input-placeholder {
+	transform: translateX(-5px) scaleY(0.9);
+	color: #a9a9a9;
+}
+
+.search_icon {
+	height: 1.5rem;
+	width: 1.5rem;
+	fill: #458a55;
+
+	transform: translateY(0.3rem);
+}
