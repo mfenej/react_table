@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useMemo, useRef } from 'react';
 import icon from '../../assets/svg/all.svg';
 import classes from './DropDown.module.css';
 
@@ -8,7 +8,7 @@ import SearchValue from './SearchValue/SearchValue';
 import Check from './Check/Check';
 
 let indexOfColomn = undefined;
-
+let timeOut;
 const hideAllDropDown = () => {
 	let d = document.getElementsByClassName('drop');
 	for (let item of d) {
@@ -33,24 +33,27 @@ const contentDropCheck = (allColumns, hiddenCol) => {
 	toRender = <Check columns={allColumns} hiddenCol={hiddenCol} />
 };
 const DropDown = (props) => {
+
 	const displayDropDown = (id) => {
-	hideAllDropDown();
-	document.getElementById(`dropDown${id}`).style.display = 'block';
-	indexOfColomn = id;
-	contentDropMain();
-};
-const contentDropMain = () => {
-	BTNMain = classes.table__menu__item__btn__open;
-	BTNSearch = classes.table__menu__item__btn__closed;
-	BTNCheck = classes.table__menu__item__btn__closed;
-	toRender = <Main resetsizing={props.resetsizing}/>
-};
+		hideAllDropDown();
+		document.getElementById(`dropDown${id}`).style.display = 'block';
+		// document.getElementById(`dropDownInBTN${id}`).focus();
+		indexOfColomn = id;
+		contentDropMain(indexOfColomn);
+	};
+
+	const contentDropMain = () => {
+		BTNMain = classes.table__menu__item__btn__open;
+		BTNSearch = classes.table__menu__item__btn__closed;
+		BTNCheck = classes.table__menu__item__btn__closed;
+		toRender = <Main resetsizing={props.resetsizing} />
+	};
 
 	const menuBTNS = () => (
 		<div style={{ display: 'flex' }}>
 			<button
 				onClick={() => {
-					hideDropDown(`dropDown${props.ID}`);
+					contentDropMain();
 				}}
 				id={`dropDownInBTN${props.ID}`}
 				className={BTNMain}
@@ -104,8 +107,19 @@ const contentDropMain = () => {
 			contentDropSearchInput={contentDropSearchInput}
 		/>;
 	};
+	const eventHandlers = useMemo(() => ({
+		onFocus: () => {
+			window.clearTimeout(timeOut)
+		},
+		onBlur: () => {
+			timeOut = setTimeout(hideAllDropDown,1)
+		}
+	}), []);
+
 	return (
-		<React.Fragment>
+		<div 
+		{...eventHandlers}
+		>
 			<button
 				onClick={() => {
 					displayDropDown(props.ID);
@@ -147,7 +161,7 @@ const contentDropMain = () => {
 					{toRender}
 				</div>
 			</div>
-		</React.Fragment>
+		</div>
 	);
 };
 export default DropDown;
