@@ -32,16 +32,19 @@ const DropDown = (props) => {
 	const displayDropDown = (id) => {
 		hideAllDropDown();
 		document.getElementById(`dropDown${id}`).style.display = 'block';
-		// document.getElementById(`dropDownInBTN${id}`).focus();
-		indexOfColomn = id;
-		contentDropMain(indexOfColomn);
+		contentDropMain(id);
 	};
 
-	const contentDropMain = () => {
+	const contentDropMain = (id) => {
 		BTNMain = classes.table__menu__item__btn__open;
 		BTNSearch = classes.table__menu__item__btn__closed;
 		BTNCheck = classes.table__menu__item__btn__closed;
-		toRender = <Main resetsizing={props.resetsizing} />
+		toRender = <Main
+			resetsizing={props.resetsizing}
+			groupBy={props.groupBy}
+			localSearchIds={props.localSearchIds}
+			index={id}
+		/>
 	};
 
 	const menuBTNS = () => (
@@ -108,6 +111,7 @@ const DropDown = (props) => {
 		BTNCheck = classes.table__menu__item__btn__open;
 		toRender = <Check columns={allColumns} hiddenCol={hiddenCol} />
 	};
+
 	const eventHandlers = useMemo(() => ({
 		onFocus: () => {
 			window.clearTimeout(timeOut)

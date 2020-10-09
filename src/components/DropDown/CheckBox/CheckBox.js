@@ -20,7 +20,7 @@ const CheckBox = React.memo(props => {
             checked={check}
             onChange={change}
         />
-        <label onClick={change} style={{ marginLeft: '1rem', cursor: 'pointer' }}>{props.text}</label>
+        <div onClick={change} style={{ marginLeft: '1rem', cursor: 'pointer' }}>{props.text}</div>
     </div>
 });
 

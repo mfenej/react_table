@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useBlockLayout, useSortBy, useTable, useResizeColumns, useGroupBy, useExpanded } from 'react-table';
 import { FixedSizeList } from 'react-window';
@@ -37,7 +37,6 @@ const ReactTable = (props) => {
 
 		return [day, month, year].join('-');
 	};
-
 	//the headers of the table
 	let columns = React.useMemo(
 		() => [
@@ -89,6 +88,15 @@ const ReactTable = (props) => {
 				accessor: 'colRemarks',
 			},
 		],
+		[]
+	);
+
+	const defaultColumn = React.useMemo(
+		() => ({
+			minWidth: 100,
+			width: 150,
+			maxWidth: 300,
+		}),
 		[]
 	);
 
@@ -195,14 +203,7 @@ const ReactTable = (props) => {
 	// };
 	let Id = -1;
 
-	const defaultColumn = React.useMemo(
-		() => ({
-			minWidth: 100,
-			width: 150,
-			maxWidth: 300,
-		}),
-		[]
-	);
+
 	function useControlledState(state, { instance }) {
 		return React.useMemo(() => {
 			if (state.groupBy.length) {
@@ -260,7 +261,7 @@ const ReactTable = (props) => {
 										{column.canGroupBy ? (
 											// If the column can be grouped, let's add a toggle
 											<span {...column.getGroupByToggleProps()}>
-												{column.isGrouped ? '🛑 ' : '👊 '}
+												{/* {column.isGrouped ? '🛑 ' : '👊 '} */}
 											</span>
 										) : null}
 										{column.render('Header')}{' '}
@@ -283,7 +284,8 @@ const ReactTable = (props) => {
 											},
 										})}
 									>
-										{row.isExpanded ? '👇' : '👉'} {groupedCell.render('Cell')}{' '}
+										{/* {row.isExpanded ? '👇' : '👉'} */}
+										{groupedCell.render('Cell')}{' '}
                     ({row.subRows.length})
 									</span>
 								)
@@ -361,12 +363,13 @@ const ReactTable = (props) => {
 		});
 		return unique;
 	};
-	const doResetResizing = () => {
-		resetResizing();
-	}
+
 	const clear = () => {
-		resetResizing();
-		toggleGroupBy('code', true);
+		// setTimeout(() => { 
+		// 	seta(300);
+		// },2000)
+		//resetResizing('code');
+		// toggleGroupBy('code');
 		// setTimeout(() => {
 		// 	localSearchIds.map(el => {
 		// 		toggleGroupBy(el, false);
@@ -383,7 +386,7 @@ const ReactTable = (props) => {
 				<option value="50000">50,000</option>
 				<option value="1000000">1,000,000</option>
 			</select> */}
-			<button onClick={clear} >clear</button>
+			<button onClick={clear}>dcd</button>
 			<table {...getTableProps()} className={classes.table}>
 				<thead>
 					{headerGroups.map((headerGroup) => (
@@ -395,14 +398,14 @@ const ReactTable = (props) => {
 									{...column.getHeaderProps(column.getSortByToggleProps())}
 									className={classes.table__menu__item}
 								>
-									{
+									{/* {
 										column.canGroupBy ? (
 											// If the column can be grouped, let's add a toggle
 											<span {...column.getGroupByToggleProps()}>
 												{column.isGrouped ? '🛑 ' : '👊 '}
 											</span>
 										) : null
-									}
+									} */}
 									<div className={classes.table__header}>
 										<div style={{ width: 'max-content' }}>
 											{column.render('Header')}
@@ -417,7 +420,9 @@ const ReactTable = (props) => {
 														data={dataFiltration(data, columns[Id])}
 														ID={Id}
 														hiddenCol={props.columnsToHide}
-														resetsizing={resetResizing}
+													resetsizing={resetResizing}
+													groupBy={toggleGroupBy}
+													localSearchIds={localSearchIds}
 													/>
 												))
 										}
