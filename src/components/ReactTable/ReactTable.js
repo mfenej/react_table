@@ -7,21 +7,38 @@ import * as actions from '../../store/actions/index';
 import DropDown from '../DropDown/DropDown';
 import classes from './ReactTable.module.css';
 
-const ReactTable = (props) => {
+const ReactTable =(props) => {
 	// array of object each object is a row
-	const data = React.useMemo(() => [], [props.clients, props.columnsToHide]);
-
-	props.clients.map((ob) => {
-		return data.push({
-			colCode: ob.code,
-			colLable: ob.label,
-			colValidForm: ob.validFrom,
-			colValidTo: ob.validTo,
-			colAirport: ob.airportCode,
-			colRemarks: ob.remarks,
-			id: ob.id,
+	const [data,setData] = useState([]);
+	useEffect(() => {
+		let tempData=[]
+		props.clients.map((ob) => {
+			console.log(ob)
+			return tempData.push({
+				colCode: ob.code,
+				colLable: ob.label,
+				colValidForm: ob.validFrom,
+				colValidTo: ob.validTo,
+				colAirport: ob.airportCode,
+				colRemarks: ob.remarks,
+				id: ob.id,
+			});
 		});
-	});
+		setData(tempData)
+	},[props.clients, props.columnsToHide])
+
+	// props.clients.map((ob) => {
+	// 	console.log(ob)
+	// 	return data.push({
+	// 		colCode: ob.code,
+	// 		colLable: ob.label,
+	// 		colValidForm: ob.validFrom,
+	// 		colValidTo: ob.validTo,
+	// 		colAirport: ob.airportCode,
+	// 		colRemarks: ob.remarks,
+	// 		id: ob.id,
+	// 	});
+	// });
 
 	const formatDate = (date) => {
 		let day = date.getDate();
@@ -197,10 +214,10 @@ const ReactTable = (props) => {
 		}
 	};
 	// testing
-	// const dropDownHandler = (event) => {
-	// 	const val = event.target.value;
-	// 	props.onCLientInit(val);
-	// };
+	const dropDownHandler = (event) => {
+		const val = event.target.value;
+		props.onCLientInit(val);
+	};
 	let Id = -1;
 
 
@@ -379,13 +396,13 @@ const ReactTable = (props) => {
 	}
 	return (
 		<div className={classes.Table}>
-			{/* <select onChange={dropDownHandler}>
+			<select onChange={dropDownHandler}>
 				<option>select an option</option>
 				<option value="1000">1,000</option>
 				<option value="10000">10,000</option>
 				<option value="50000">50,000</option>
 				<option value="1000000">1,000,000</option>
-			</select> */}
+			</select>
 			<button onClick={clear}>dcd</button>
 			<table {...getTableProps()} className={classes.table}>
 				<thead>
@@ -461,6 +478,27 @@ const ReactTable = (props) => {
 					>
 						{RenderRow}
 					</FixedSizeList>
+					{/* {rows.map(row => {
+						prepareRow(row)
+						return (
+							<tr {...row.getRowProps()}>
+								{row.cells.map(cell => {
+									return (
+										<td
+											{...cell.getCellProps()}
+											style={{
+												padding: '10px',
+												border: 'solid 1px gray',
+												background: 'papayawhip',
+											}}
+										>
+											{cell.render('Cell')}
+										</td>
+									)
+								})}
+							</tr>
+						)
+					})} */}
 
 				</tbody>
 			</table>
@@ -487,7 +525,7 @@ const mapDispatchToProps = (dispatch) => {
 		onFormDisplay: (isDisplayed) => dispatch(actions.displayForm(isDisplayed)),
 
 		// testing
-		// onCLientInit: (num) => dispatch(actions.fetchClients(num)),
+		onCLientInit: (num) => dispatch(actions.fetchClients(num)),
 	};
 };
 

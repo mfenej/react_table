@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import uniqid from 'uniqid';
+import uniqid from 'uniqid';
 
 import * as actionTypes from '../actions/actionTypes';
 
@@ -38,22 +38,25 @@ const createClients = (num) => {
 		},
 	];
 
-// 	for (let i = 0; i < length; i++) {
-// 		const code = uniqid();
 
-// 		const timestamp = createTimestamp();
+	for (let i = 0; i < length; i++) {
+		const code = uniqid();
 
-// 		const client = {
-// 			code,
-// 			label: 'User',
-// 			validFrom: timestamp,
-// 			validTo: timestamp,
-// 			airportCode: 'UAE#2323',
-// 			remarks: 'something',
-// 		};
+		const timestamp = createTimestamp();
+console.log(i)
+		const client = {
+			code,
+			label: 'User'+i,
+			validFrom: timestamp,
+			validTo: timestamp,
+			airportCode: 'UAE#2323',
+			remarks: 'something',
+		};
 
-// 		clients.push(client);
-// 	}
+		clients.push(client);
+	}
+	
+	
 	return clients;
 };
 
