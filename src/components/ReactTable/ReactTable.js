@@ -26,20 +26,7 @@ const ReactTable = (props) => {
 		});
 		setData(tempData)
 	}, [props.clients, props.columnsToHide])
-
-	// props.clients.map((ob) => {
-	// 	console.log(ob)
-	// 	return data.push({
-	// 		colCode: ob.code,
-	// 		colLable: ob.label,
-	// 		colValidForm: ob.validFrom,
-	// 		colValidTo: ob.validTo,
-	// 		colAirport: ob.airportCode,
-	// 		colRemarks: ob.remarks,
-	// 		id: ob.id,
-	// 	});
-	// });
-
+	
 	const formatDate = (date) => {
 		let day = date.getDate();
 		let month = date.getMonth() + 1;
@@ -54,12 +41,38 @@ const ReactTable = (props) => {
 
 		return [day, month, year].join('-');
 	};
+	let Id = -1;
+	const test = () => {
+		Id++;
+		return (
+			<div style={{
+				position:'relative',
+				width: '5rem',
+				height: '5rem',
+				backgroundColor: 'red',
+				marginTop:'5rem',
+				zIndex:'4'
+			}}>test</div>
+			// <DropDown
+			// 	length={column.length}
+			// 	columns={columns[Id]}
+			// 	allColumns={columns}
+			// 	data={dataFiltration(data, columns[Id])}
+			// 	ID={Id}
+			// 	hiddenCol={props.columnsToHide}
+			// 	resetsizing={resetResizing}
+			// 	groupBy={toggleGroupBy}
+			// 	localSearchIds={localSearchIds}
+			// />
+		)
+	}
 	//the headers of the table
 	let columns = React.useMemo(
 		() => [
 			{
 				id: 'code',
-				Header: 'code',
+				Header: <div>{'code'} {test()}</div>,
+				// Header: 'code',
 				accessor: 'colCode', // accessor is the "key" in the data
 			},
 			{
@@ -195,7 +208,7 @@ const ReactTable = (props) => {
 				txtValue = td.textContent || td.innerText;
 
 				if (txtValue.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = '';
+					tr[i].style.display = 'block';
 				} else {
 					tr[i].style.display = 'none';
 				}
@@ -218,7 +231,7 @@ const ReactTable = (props) => {
 		const val = event.target.value;
 		props.onCLientInit(val);
 	};
-	let Id = -1;
+
 
 
 	function useControlledState(state, { instance }) {
@@ -330,16 +343,18 @@ const ReactTable = (props) => {
 			const row = rows[index];
 			prepareRow(row);
 			return (
-				<tr {...row.getRowProps()} style={style}>
+				<tr {...row.getRowProps()} style={{style}} >
+					{console.log(1)}
 					{row.cells.map((cell) => {
 						return (
 							<td
 								onClick={displayData}
 								{...cell.getCellProps()}
 								style={{
+									...cell.getCellProps().style,
 									position: 'relative',
 									cursor: 'pointer',
-									width: '9rem',
+									// width: '9rem',
 									padding: '1rem 3rem',
 									textAlign: 'center',
 									fontSize: '1rem',
@@ -389,6 +404,14 @@ const ReactTable = (props) => {
 		// },1000)
 
 	}
+	// useEffect(() => {
+	// 	console.log(document.activeElement)
+	// 	console.log(document.getElementById(`ss`).contains(document.activeElement));
+	// 	document.getElementById(`ss`).addEventListener('focusout', () => console.log('b'));
+	// })
+	// console.log(document.activeElement)
+
+
 	return (
 
 		<div className={classes.Table}>
@@ -423,22 +446,17 @@ const ReactTable = (props) => {
 										<div style={{ width: 'max-content' }}>
 											{column.render('Header')}
 										</div>
-										{
-											(Id++,
-												(
-													<DropDown
-														length={column.length}
-														columns={columns[Id]}
-														allColumns={columns}
-														data={dataFiltration(data, columns[Id])}
-														ID={Id}
-														hiddenCol={props.columnsToHide}
-														resetsizing={resetResizing}
-														groupBy={toggleGroupBy}
-														localSearchIds={localSearchIds}
-													/>
-												))
-										}
+										{/* <DropDown
+											length={column.length}
+											columns={columns[Id]}
+											allColumns={columns}
+											data={dataFiltration(data, columns[Id])}
+											ID={Id}
+											hiddenCol={props.columnsToHide}
+											resetsizing={resetResizing}
+											groupBy={toggleGroupBy}
+											localSearchIds={localSearchIds}
+										/> */}
 										<div
 											{...column.getResizerProps()}
 											className={classes.resizer}
@@ -464,7 +482,7 @@ const ReactTable = (props) => {
 							</th>
 						))}
 					</tr>
-
+					{console.log(rows.length)}
 					<FixedSizeList
 						height={800}
 						itemCount={rows.length}
@@ -474,34 +492,6 @@ const ReactTable = (props) => {
 					>
 						{RenderRow}
 					</FixedSizeList>
-					{/* {rows.map(row => {
-						prepareRow(row)
-						return (
-							<tr {...row.getRowProps()} className={classes.List}>
-								{row.cells.map(cell => {
-									return (
-										<td
-											{...cell.getCellProps()}
-											style={{
-												cursor: 'pointer',
-												minWidth: 100,
-												width:150,
-												maxWidth: 300,
-												padding: '1rem 3rem',
-												textAlign: 'center',
-												fontSize: '1rem',
-												fontWeight: '600',
-												lineHeight: '1rem',
-											}}
-										>
-											{cell.render('Cell')}
-										</td>
-									)
-								})}
-							</tr>
-						)
-					})} */}
-
 				</tbody>
 			</table>
 		</div>

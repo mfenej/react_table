@@ -113,11 +113,13 @@ const DropDown = (props) => {
 			window.clearTimeout(timeOut)
 		},
 		onBlur: () => {
-			timeOut = setTimeout(hideAllDropDown, 1)
+			//timeOut = setTimeout(hideAllDropDown, 1)
 		}
 	}), []);
+
 	return (
 		<div
+			id={'ss'}
 			{...eventHandlers}
 		>
 			<button
