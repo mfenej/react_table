@@ -472,7 +472,7 @@ const ReactTable =(props) => {
 						))}
 					</tr>
 
-					{/* <FixedSizeList
+					<FixedSizeList
 						height={800}
 						itemCount={rows.length}
 						itemSize={30}
@@ -480,8 +480,8 @@ const ReactTable =(props) => {
 						className={classes.List}
 					>
 						{RenderRow}
-					</FixedSizeList> */}
-					{rows.map(row => {
+					</FixedSizeList>
+					{/* {rows.map(row => {
 						prepareRow(row)
 						return (
 							<tr {...row.getRowProps()} className={classes.List}>
@@ -507,7 +507,7 @@ const ReactTable =(props) => {
 								})}
 							</tr>
 						)
-					})}
+					})} */}
 
 				</tbody>
 			</table>
