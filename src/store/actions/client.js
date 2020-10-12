@@ -43,7 +43,6 @@ const createClients = (num) => {
 		const code = uniqid();
 
 		const timestamp = createTimestamp();
-console.log(i)
 		const client = {
 			code,
 			label: 'User'+i,

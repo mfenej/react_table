@@ -16,10 +16,6 @@ const hideAllDropDown = () => {
 	}
 };
 
-const hideDropDown = (id) => {
-	document.getElementById(id).style.display = 'none';
-};
-
 let BTNMain = null;
 let BTNSearch = null;
 let BTNCheck = null;

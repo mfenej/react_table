@@ -14,7 +14,6 @@ const ReactTable =(props) => {
 	useEffect(() => {
 		let tempData=[]
 		props.clients.map((ob) => {
-			console.log(ob)
 			return tempData.push({
 				colCode: ob.code,
 				colLable: ob.label,
