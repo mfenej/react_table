@@ -6,6 +6,7 @@ import * as actions from '../../store/actions/index';
 // import AutoSizer from 'react-virtualized-auto-sizer';
 import DropDown from '../DropDown/DropDown';
 import classes from './ReactTable.module.css';
+import './ReactTable.module.css';
 
 const ReactTable =(props) => {
 	// array of object each object is a row
@@ -352,6 +353,7 @@ const ReactTable =(props) => {
 									fontWeight: '600',
 									lineHeight: '1rem',
 								}}
+								// className={classes.Test}
 							>
 								{cell.render('Cell')}
 							</td>
@@ -395,6 +397,7 @@ const ReactTable =(props) => {
 
 	}
 	return (
+		 
 		<div className={classes.Table}>
 			<select onChange={dropDownHandler}>
 				<option>select an option</option>
@@ -469,7 +472,7 @@ const ReactTable =(props) => {
 						))}
 					</tr>
 
-					<FixedSizeList
+					{/* <FixedSizeList
 						height={800}
 						itemCount={rows.length}
 						itemSize={30}
@@ -477,19 +480,25 @@ const ReactTable =(props) => {
 						className={classes.List}
 					>
 						{RenderRow}
-					</FixedSizeList>
-					{/* {rows.map(row => {
+					</FixedSizeList> */}
+					{rows.map(row => {
 						prepareRow(row)
 						return (
-							<tr {...row.getRowProps()}>
+							<tr {...row.getRowProps()} className={classes.List}>
 								{row.cells.map(cell => {
 									return (
 										<td
 											{...cell.getCellProps()}
 											style={{
-												padding: '10px',
-												border: 'solid 1px gray',
-												background: 'papayawhip',
+												cursor: 'pointer',
+												minWidth: 100,
+												width:150,
+												maxWidth: 300,
+												padding: '1rem 3rem',
+												textAlign: 'center',
+												fontSize: '1rem',
+												fontWeight: '600',
+												lineHeight: '1rem',
 											}}
 										>
 											{cell.render('Cell')}
@@ -498,7 +507,7 @@ const ReactTable =(props) => {
 								})}
 							</tr>
 						)
-					})} */}
+					})}
 
 				</tbody>
 			</table>

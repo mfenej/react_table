@@ -249,3 +249,12 @@ table tbody tr:nth-child(even) {
 	display: flex;
 	background-color: #d9e5ed;
 }
+.Test{
+	cursor: 'pointer';
+ 	width: '9rem';
+	padding: '1rem 3rem';
+	text-align: 'center';
+	font-size: '1rem';
+	font-weight: '600';
+	line-height: '1rem';
+}
