@@ -2,6 +2,7 @@ import React from 'react';
 import DropDownItem from '../../DropDownItem/DropDownItem';
 const Main = props => {
     const gropby = () => {
+        props.resetsizing();
         props.groupBy(props.localSearchIds[props.index])
     }
    return <div style={{ height: '100%', backgroundColor: '#354f69' }}>

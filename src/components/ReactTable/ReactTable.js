@@ -8,11 +8,11 @@ import DropDown from '../DropDown/DropDown';
 import classes from './ReactTable.module.css';
 import './ReactTable.module.css';
 
-const ReactTable =(props) => {
+const ReactTable = (props) => {
 	// array of object each object is a row
-	const [data,setData] = useState([]);
+	const [data, setData] = useState([]);
 	useEffect(() => {
-		let tempData=[]
+		let tempData = []
 		props.clients.map((ob) => {
 			return tempData.push({
 				colCode: ob.code,
@@ -25,7 +25,7 @@ const ReactTable =(props) => {
 			});
 		});
 		setData(tempData)
-	},[props.clients, props.columnsToHide])
+	}, [props.clients, props.columnsToHide])
 
 	// props.clients.map((ob) => {
 	// 	console.log(ob)
@@ -58,7 +58,7 @@ const ReactTable =(props) => {
 	let columns = React.useMemo(
 		() => [
 			{
-				id:'code',
+				id: 'code',
 				Header: 'code',
 				accessor: 'colCode', // accessor is the "key" in the data
 			},
@@ -68,7 +68,7 @@ const ReactTable =(props) => {
 				accessor: 'colLable', //use the to put data in this colomn like in the data const
 			},
 			{
-				id:'valid form',
+				id: 'valid form',
 				Header: 'valid form',
 				accessor: 'colValidForm',
 				Cell: (props) => {
@@ -274,15 +274,9 @@ const ReactTable =(props) => {
 								const column = allColumns.find(d => d.id === columnId)
 
 								return (
-									<span {...column.getHeaderProps()}>
-										{column.canGroupBy ? (
-											// If the column can be grouped, let's add a toggle
-											<span {...column.getGroupByToggleProps()}>
-												{/* {column.isGrouped ? '🛑 ' : '👊 '} */}
-											</span>
-										) : null}
+									<label {...column.getHeaderProps()}>
 										{column.render('Header')}{' '}
-									</span>
+									</label>
 								)
 							})
 						},
@@ -291,7 +285,7 @@ const ReactTable =(props) => {
 								const groupedCell = row.allCells.find(d => d.isGrouped)
 
 								return (
-									<span
+									<label
 										{...row.getToggleRowExpandedProps({
 											style: {
 												// We can even use the row.depth property
@@ -303,8 +297,8 @@ const ReactTable =(props) => {
 									>
 										{/* {row.isExpanded ? '👇' : '👉'} */}
 										{groupedCell.render('Cell')}{' '}
-                    ({row.subRows.length})
-									</span>
+                    					({row.subRows.length})
+									</label>
 								)
 							}
 
@@ -352,7 +346,7 @@ const ReactTable =(props) => {
 									fontWeight: '600',
 									lineHeight: '1rem',
 								}}
-								// className={classes.Test}
+							// className={classes.Test}
 							>
 								{cell.render('Cell')}
 							</td>
@@ -396,7 +390,7 @@ const ReactTable =(props) => {
 
 	}
 	return (
-		 
+
 		<div className={classes.Table}>
 			<select onChange={dropDownHandler}>
 				<option>select an option</option>
@@ -439,9 +433,9 @@ const ReactTable =(props) => {
 														data={dataFiltration(data, columns[Id])}
 														ID={Id}
 														hiddenCol={props.columnsToHide}
-													resetsizing={resetResizing}
-													groupBy={toggleGroupBy}
-													localSearchIds={localSearchIds}
+														resetsizing={resetResizing}
+														groupBy={toggleGroupBy}
+														localSearchIds={localSearchIds}
 													/>
 												))
 										}
