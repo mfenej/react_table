@@ -6,7 +6,7 @@ import * as actions from '../../store/actions/index';
 // import AutoSizer from 'react-virtualized-auto-sizer';
 import DropDown from '../DropDown/DropDown';
 import classes from './ReactTable.module.css';
-import './ReactTable.module.css';
+import icon from '../../assets/svg/all.svg';
 
 const ReactTable = (props) => {
 	// array of object each object is a row
@@ -305,10 +305,23 @@ const ReactTable = (props) => {
 												// and paddingLeft to indicate the depth
 												// of the row
 												paddingLeft: `${row.depth * 2}rem`,
+												
 											},
 										})}
+										style={{
+											display:'flex'
+										}}
 									>
-										{/* {row.isExpanded ? '👇' : '👉'} */}
+										<svg style={{
+											width: '1.5rem',
+											height: '1.5rem',
+											marginRight: '1rem',
+											fill:'#39648f'
+										}}>
+											{row.isExpanded ? <use xlinkHref={`${icon}#icon-minus`} /> : <use xlinkHref={`${icon}#icon-add`} />}
+											
+										</svg>
+										
 										{groupedCell.render('Cell')}{' '}
                     					({row.subRows.length})
 									</label>
@@ -441,6 +454,7 @@ const ReactTable = (props) => {
 										<div style={{ width: 'max-content' }}>
 											{column.render('Header')}
 										</div>
+										
 										{
 											(Id++,
 											(<DropDown

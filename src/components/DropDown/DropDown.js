@@ -119,7 +119,7 @@ const DropDown = (props) => {
 		}
 	}), []);
 	const t = (e) => {
-		e.stopPropagation()
+		//e.stopPropagation()
 }
 	return (
 		<div
