@@ -26,7 +26,7 @@ const ReactTable = (props) => {
 		});
 		setData(tempData)
 	}, [props.clients, props.columnsToHide])
-	
+
 	const formatDate = (date) => {
 		let day = date.getDate();
 		let month = date.getMonth() + 1;
@@ -42,37 +42,37 @@ const ReactTable = (props) => {
 		return [day, month, year].join('-');
 	};
 	let Id = -1;
-	const test = () => {
-		Id++;
-		return (
-			<div style={{
-				position:'relative',
-				width: '5rem',
-				height: '5rem',
-				backgroundColor: 'red',
-				marginTop:'5rem',
-				zIndex:'4'
-			}}>test</div>
-			// <DropDown
-			// 	length={column.length}
-			// 	columns={columns[Id]}
-			// 	allColumns={columns}
-			// 	data={dataFiltration(data, columns[Id])}
-			// 	ID={Id}
-			// 	hiddenCol={props.columnsToHide}
-			// 	resetsizing={resetResizing}
-			// 	groupBy={toggleGroupBy}
-			// 	localSearchIds={localSearchIds}
-			// />
-		)
-	}
+	// const test = () => {
+	// 	Id++;
+	// 	return (
+	// 		<div style={{
+	// 			position:'relative',
+	// 			width: '5rem',
+	// 			height: '5rem',
+	// 			backgroundColor: 'red',
+	// 			marginTop:'5rem',
+	// 			zIndex:'4'
+	// 		}}>test</div>
+	// 		// <DropDown
+	// 		// 	length={column.length}
+	// 		// 	columns={columns[Id]}
+	// 		// 	allColumns={columns}
+	// 		// 	data={dataFiltration(data, columns[Id])}
+	// 		// 	ID={Id}
+	// 		// 	hiddenCol={props.columnsToHide}
+	// 		// 	resetsizing={resetResizing}
+	// 		// 	groupBy={toggleGroupBy}
+	// 		// 	localSearchIds={localSearchIds}
+	// 		// />
+	// 	)
+	// }
 	//the headers of the table
 	let columns = React.useMemo(
 		() => [
 			{
 				id: 'code',
-				Header: <div>{'code'} {test()}</div>,
-				// Header: 'code',
+				//Header: <div>{'code'} {test()}</div>,
+				Header: 'code',
 				accessor: 'colCode', // accessor is the "key" in the data
 			},
 			{
@@ -326,8 +326,11 @@ const ReactTable = (props) => {
 	useEffect(() => {
 		if (props.columnsToHide !== null) {
 			props.columnsToHide.map((el) => {
-				toggleHideColumn(el.accessor, el.val);
-				let input = document.getElementById(el.Header + 'search');
+				toggleHideColumn(el.id, el.val);
+				console.log(el.id)
+				console.log(el.val)
+				let input = document.getElementById(el.id + 'search');
+				console.log(input)
 				if (input !== null)
 					if (el.val) {
 						input.style.display = 'none';
@@ -343,8 +346,10 @@ const ReactTable = (props) => {
 			const row = rows[index];
 			prepareRow(row);
 			return (
-				<tr {...row.getRowProps()} style={{style}} >
-					{console.log(1)}
+				<tr {...row.getRowProps()} style={{
+					...row.getRowProps().style,
+					style
+				}} >
 					{row.cells.map((cell) => {
 						return (
 							<td
@@ -354,7 +359,7 @@ const ReactTable = (props) => {
 									...cell.getCellProps().style,
 									position: 'relative',
 									cursor: 'pointer',
-									// width: '9rem',
+									//width: '9rem',
 									padding: '1rem 3rem',
 									textAlign: 'center',
 									fontSize: '1rem',
@@ -392,16 +397,6 @@ const ReactTable = (props) => {
 	};
 
 	const clear = () => {
-		// setTimeout(() => { 
-		// 	seta(300);
-		// },2000)
-		//resetResizing('code');
-		// toggleGroupBy('code');
-		// setTimeout(() => {
-		// 	localSearchIds.map(el => {
-		// 		toggleGroupBy(el, false);
-		// 	})
-		// },1000)
 
 	}
 	// useEffect(() => {
@@ -446,17 +441,20 @@ const ReactTable = (props) => {
 										<div style={{ width: 'max-content' }}>
 											{column.render('Header')}
 										</div>
-										{/* <DropDown
-											length={column.length}
-											columns={columns[Id]}
-											allColumns={columns}
-											data={dataFiltration(data, columns[Id])}
-											ID={Id}
-											hiddenCol={props.columnsToHide}
-											resetsizing={resetResizing}
-											groupBy={toggleGroupBy}
-											localSearchIds={localSearchIds}
-										/> */}
+										{
+											(Id++,
+											(<DropDown
+												length={column.length}
+												columns={columns[Id]}
+												allColumns={columns}
+												data={dataFiltration(data, columns[Id])}
+												ID={Id}
+												hiddenCol={props.columnsToHide}
+												resetsizing={resetResizing}
+												groupBy={toggleGroupBy}
+												localSearchIds={localSearchIds}
+											/>))
+										}
 										<div
 											{...column.getResizerProps()}
 											className={classes.resizer}
@@ -482,7 +480,6 @@ const ReactTable = (props) => {
 							</th>
 						))}
 					</tr>
-					{console.log(rows.length)}
 					<FixedSizeList
 						height={800}
 						itemCount={rows.length}

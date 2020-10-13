@@ -247,7 +247,7 @@ table tbody tr:nth-child(even) {
 .Search__row {
 	height: max-content;
 	display: flex;
-	background-color: #d9e5ed;
+	/* background-color: #d9e5ed; */
 }
 .Test{
 	cursor: 'pointer';

@@ -88,8 +88,10 @@ const DropDown = (props) => {
 		BTNMain = classes.table__menu__item__btn__closed;
 		BTNSearch = classes.table__menu__item__btn__open;
 		BTNCheck = classes.table__menu__item__btn__closed;
-		toRender = <SearchInput contentDropSearchValue={contentDropSearchValue}
-			indexOfColomn={indexOfColomn} />
+		toRender = <SearchInput
+			contentDropSearchValue={contentDropSearchValue}
+			indexOfColomn={props.ID}
+		/>
 	};
 	const contentDropSearchValue = () => {
 		BTNMain = classes.table__menu__item__btn__closed;
@@ -105,7 +107,7 @@ const DropDown = (props) => {
 		BTNMain = classes.table__menu__item__btn__closed;
 		BTNSearch = classes.table__menu__item__btn__closed;
 		BTNCheck = classes.table__menu__item__btn__open;
-		toRender = <Check columns={allColumns} hiddenCol={hiddenCol} />
+		toRender = <Check allColumns={allColumns} hiddenCol={hiddenCol} />
 	};
 
 	const eventHandlers = useMemo(() => ({
@@ -116,10 +118,13 @@ const DropDown = (props) => {
 			//timeOut = setTimeout(hideAllDropDown, 1)
 		}
 	}), []);
-
+	const t = (e) => {
+		e.stopPropagation()
+}
 	return (
 		<div
 			id={'ss'}
+		onClick={t}
 			{...eventHandlers}
 		>
 			<button
