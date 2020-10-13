@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, {useMemo} from 'react';
 import icon from '../../assets/svg/all.svg';
 import classes from './DropDown.module.css';
 
@@ -7,7 +7,6 @@ import SearchInput from './SearchInput/SearchInput';
 import SearchValue from './SearchValue/SearchValue';
 import Check from './Check/Check';
 
-let indexOfColomn = undefined;
 let timeOut;
 const hideAllDropDown = () => {
 	let d = document.getElementsByClassName('drop');
@@ -89,8 +88,9 @@ const DropDown = (props) => {
 		BTNSearch = classes.table__menu__item__btn__open;
 		BTNCheck = classes.table__menu__item__btn__closed;
 		toRender = <SearchInput
+			searchColumn={props.searchColumn}
 			contentDropSearchValue={contentDropSearchValue}
-			indexOfColomn={props.ID}
+			ID={props.ID}
 		/>
 	};
 	const contentDropSearchValue = () => {

@@ -7,14 +7,14 @@ import * as actions from '../../store/actions/index';
 import DropDown from '../DropDown/DropDown';
 import classes from './ReactTable.module.css';
 import icon from '../../assets/svg/all.svg';
-
+let allData;
 const ReactTable = (props) => {
 	// array of object each object is a row
 	const [data, setData] = useState([]);
 	useEffect(() => {
-		let tempData = []
+		allData = []
 		props.clients.map((ob) => {
-			return tempData.push({
+			return allData.push({
 				colCode: ob.code,
 				colLable: ob.label,
 				colValidForm: ob.validFrom,
@@ -24,7 +24,7 @@ const ReactTable = (props) => {
 				id: ob.id,
 			});
 		});
-		setData(tempData)
+		setData(allData)
 	}, [props.clients, props.columnsToHide])
 
 	const formatDate = (date) => {
@@ -189,42 +189,39 @@ const ReactTable = (props) => {
 		});
 	};
 
-	const searchColumn = (inputId, idx) => {
-		const input = document.getElementById(`${inputId}search`);
-		const filter = input.value.toUpperCase();
-		const table = document.querySelector('table');
-		const tr = table.getElementsByTagName('tr');
-
-		let txtValue, td;
-
-		// const dataArr = [];
-		// const inputArr = filter.split(' ');
-		// console.log(inputArr);
-
-		for (let i = 0; i < tr.length; i++) {
-			td = tr[i].getElementsByTagName('td')[idx];
-
-			if (td) {
-				txtValue = td.textContent || td.innerText;
-
-				if (txtValue.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = 'block';
-				} else {
-					tr[i].style.display = 'none';
-				}
-
-				// dataArr.push(txtValue);
-				// console.log(dataArr);
-
-				// const found = dataArr.some((txt) => inputArr.indexOf(txt) >= 0);
-				// console.log(found);
-				// if (txtValue.includes(txtValue)) {
-				// 	tr[i].style.display = '';
-				// } else {
-				// 	tr[i].style.display = 'none';
-				// }
-			}
+	const searchColumn = (inputId, value,select) => {
+		let input;
+		let id = inputId;
+		let selectVal = 'contains';
+		if (value === undefined)
+			input = document.getElementById(`${inputId}search`).value;
+		else {
+			input = value;
+			id = localSearchIds[inputId];
+			selectVal = select;
 		}
+
+		let arrOfInputs = input.split(' ');
+		if (arrOfInputs[0] === '') {
+			setData(allData);
+		}
+		else {
+			let access = null;
+			columns.map((el) => {
+				if (el.id === id)
+					access = el.accessor
+			})
+			
+			let matchedData = [];
+			allData.map((el) => {
+				arrOfInputs.map((inp) => {
+					if (inp !== '' && el.[access].toUpperCase().includes(inp.toUpperCase()))
+						matchedData.push(el);
+				})
+			})
+			setData(matchedData);
+		}
+
 	};
 	// testing
 	const dropDownHandler = (event) => {
@@ -305,23 +302,23 @@ const ReactTable = (props) => {
 												// and paddingLeft to indicate the depth
 												// of the row
 												paddingLeft: `${row.depth * 2}rem`,
-												
+
 											},
 										})}
 										style={{
-											display:'flex'
+											display: 'flex'
 										}}
 									>
 										<svg style={{
 											width: '1.5rem',
 											height: '1.5rem',
 											marginRight: '1rem',
-											fill:'#39648f'
+											fill: '#39648f'
 										}}>
 											{row.isExpanded ? <use xlinkHref={`${icon}#icon-minus`} /> : <use xlinkHref={`${icon}#icon-add`} />}
-											
+
 										</svg>
-										
+
 										{groupedCell.render('Cell')}{' '}
                     					({row.subRows.length})
 									</label>
@@ -340,10 +337,7 @@ const ReactTable = (props) => {
 		if (props.columnsToHide !== null) {
 			props.columnsToHide.map((el) => {
 				toggleHideColumn(el.id, el.val);
-				console.log(el.id)
-				console.log(el.val)
 				let input = document.getElementById(el.id + 'search');
-				console.log(input)
 				if (input !== null)
 					if (el.val) {
 						input.style.display = 'none';
@@ -359,10 +353,12 @@ const ReactTable = (props) => {
 			const row = rows[index];
 			prepareRow(row);
 			return (
-				<tr {...row.getRowProps()} style={{
+				<tr {...row.getRowProps()}
+					style={{
 					...row.getRowProps().style,
 					style
-				}} >
+					}}
+				>
 					{row.cells.map((cell) => {
 						return (
 							<td
@@ -372,8 +368,8 @@ const ReactTable = (props) => {
 									...cell.getCellProps().style,
 									position: 'relative',
 									cursor: 'pointer',
-									//width: '9rem',
-									padding: '1rem 3rem',
+									// width: '9rem',
+									padding: '1rem 2.9rem',
 									textAlign: 'center',
 									fontSize: '1rem',
 									fontWeight: '600',
@@ -395,7 +391,7 @@ const ReactTable = (props) => {
 		if (props.searchID !== null) {
 			let field = document.getElementById(localSearchIds[props.searchID] + 'search');
 			field.value = props.searchVal;
-			searchColumn(localSearchIds[props.searchID], props.searchID);
+			searchColumn(localSearchIds[props.searchID]);
 		}
 	}, [props.searchVal]);
 
@@ -454,20 +450,21 @@ const ReactTable = (props) => {
 										<div style={{ width: 'max-content' }}>
 											{column.render('Header')}
 										</div>
-										
+
 										{
 											(Id++,
-											(<DropDown
-												length={column.length}
-												columns={columns[Id]}
-												allColumns={columns}
-												data={dataFiltration(data, columns[Id])}
-												ID={Id}
-												hiddenCol={props.columnsToHide}
-												resetsizing={resetResizing}
-												groupBy={toggleGroupBy}
+												(<DropDown
+													length={column.length}
+													columns={columns[Id]}
+													allColumns={columns}
+													data={dataFiltration(data, columns[Id])}
+													ID={Id}
+													hiddenCol={props.columnsToHide}
+													resetsizing={resetResizing}
+													groupBy={toggleGroupBy}
 												localSearchIds={localSearchIds}
-											/>))
+												searchColumn={searchColumn}
+												/>))
 										}
 										<div
 											{...column.getResizerProps()}
@@ -481,14 +478,14 @@ const ReactTable = (props) => {
 				</thead>
 				<tbody {...getTableBodyProps()}>
 					<tr className={classes.Search__row}>
-						{localSearchIds.map((element, idx) => (
+						{localSearchIds.map((element) => (
 							<th key={element}>
 								<input
 									type="text"
 									id={element + 'search'}
 									className={classes.table__searchInput}
 									onChange={() => {
-										searchColumn(element, idx);
+										searchColumn(element);
 									}}
 								/>
 							</th>

@@ -11,58 +11,58 @@ const SearchInput = props => {
 
 
     const search = (searchValue, selectValue) => {
+        props.searchColumn(props.ID,searchValue, selectValue)
         const filter = searchValue.toUpperCase();
         const table = document.querySelector('table');
         const tr = table.getElementsByTagName('tr');
 
         let txtValue;
         let td;
-
         for (let i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName('td')[props.indexOfColomn];
+            td = tr[i].getElementsByTagName('td')[props.ID];
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 txtValue = txtValue.toUpperCase();
-
+                    
                 switch (selectValue) {
                     case 'contains':
                         if (txtValue.indexOf(filter) > -1) {
-                            tr[i].style.display = '';
+                            tr[i].style.display = 'flex';
                         } else {
                             tr[i].style.display = 'none';
                         }
                         break;
                     case 'notContains':
                         if (txtValue.indexOf(filter) === -1) {
-                            tr[i].style.display = '';
+                            tr[i].style.display = 'flex';
                         } else {
                             tr[i].style.display = 'none';
                         }
                         break;
                     case 'startWith':
                         if (txtValue.startsWith(filter)) {
-                            tr[i].style.display = '';
+                            tr[i].style.display = 'flex';
                         } else {
                             tr[i].style.display = 'none';
                         }
                         break;
                     case 'endsWith':
                         if (txtValue.endsWith(filter)) {
-                            tr[i].style.display = '';
+                            tr[i].style.display = 'flex';
                         } else {
                             tr[i].style.display = 'none';
                         }
                         break;
                     case 'notEqual':
                         if (txtValue!==filter) {
-                            tr[i].style.display = '';
+                            tr[i].style.display = 'flex';
                         } else {
                             tr[i].style.display = 'none';
                         }
                         break;
                     case 'equal':
                         if (txtValue === filter) {
-                            tr[i].style.display = '';
+                            tr[i].style.display = 'flex';
                         } else {
                             tr[i].style.display = 'none';
                         }
