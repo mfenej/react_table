@@ -144,15 +144,15 @@ table {
 	color: #fff;
 	background-color: #d9e5ed;
 	border: 0;
-	padding: 0.4rem;
+	padding: 0.4rem 0;
 	text-align: center;
 }
 /* .table__searchInput:not(:last-of-type) {
 	width: 15rem;
 } */
-.table__searchInput:last-of-type {
-	width: 14.2rem;
-}
+/* .table__searchInput:last-of-type {
+	width: 14.1rem;
+} */
 .table__searchInput:hover {
 	background-color: #47729c;
 }

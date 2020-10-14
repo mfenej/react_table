@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import icon from '../../assets/svg/all.svg';
 import classes from './DropDown.module.css';
 
@@ -120,11 +120,11 @@ const DropDown = (props) => {
 	}), []);
 	const t = (e) => {
 		//e.stopPropagation()
-}
+	}
 	return (
 		<div
 			id={'ss'}
-		onClick={t}
+			onClick={t}
 			{...eventHandlers}
 		>
 			<button

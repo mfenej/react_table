@@ -405,17 +405,17 @@ const ReactTable = (props) => {
 		return unique;
 	};
 
-	const clear = () => {
-
+	const clear = (code) => {
+		let index = localSearchIds.indexOf(code);
+		let w;
+		headerGroups.map((headerGroup) => {
+			w = headerGroup.headers[index].getHeaderProps().style.width;
+		})
+		w = w.split('p');
+		w[0] = w[0] - 1;
+		w=w.join('p')
+		return {width:w}
 	}
-	// useEffect(() => {
-	// 	console.log(document.activeElement)
-	// 	console.log(document.getElementById(`ss`).contains(document.activeElement));
-	// 	document.getElementById(`ss`).addEventListener('focusout', () => console.log('b'));
-	// })
-	// console.log(document.activeElement)
-
-
 	return (
 
 		<div className={classes.Table}>
@@ -484,6 +484,7 @@ const ReactTable = (props) => {
 									type="text"
 									id={element + 'search'}
 									className={classes.table__searchInput}
+									style={clear(element)}
 									onChange={() => {
 										searchColumn(element);
 									}}
