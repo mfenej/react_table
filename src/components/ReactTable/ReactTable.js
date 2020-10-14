@@ -11,6 +11,7 @@ import classes from './ReactTable.module.css';
 import icon from '../../assets/svg/all.svg';
 let allData;
 const ReactTable = (props) => {
+	let Id = -1;
 	const currentColOrder = React.useRef();
 	// array of object each object is a row
 	const [data, setData] = useState([]);
@@ -44,9 +45,8 @@ const ReactTable = (props) => {
 
 		return [day, month, year].join('-');
 	};
-	let Id = 0;
+
 	// const test = () => {
-	// 	Id++;
 	// 	return (
 	// 		<div style={{
 	// 			position:'relative',
@@ -134,7 +134,7 @@ const ReactTable = (props) => {
 	);
 
 	//ids of input fileds for local column search
-	
+
 
 	const displayData = useCallback(
 		(el) => {
@@ -408,20 +408,32 @@ const ReactTable = (props) => {
 		});
 		return unique;
 	};
-
+	const incrementId = () => {
+		Id = Id + 0.5;
+		return Id
+	}
 	const setSearchBoxSize = (code) => {
-		Id = Id++;
-		let index = localSearchIds.indexOf(code);
-		let w;
-		headerGroups.map((headerGroup) => {
-			w = headerGroup.headers[index].getHeaderProps().style.width;
+		let index;
+		columns.map((el, i) => {
+			if (el.id === code)
+				index = i;
 		})
+		let w;
+		console.log(props.columnsToHide[index])
+		if (props.columnsToHide[index] !== undefined && props.columnsToHide[index].val)
+			return { width: 0 };
+
+		while (headerGroups[0].headers[index] === undefined || headerGroups[0].headers[index].id !== code) {
+			index--;
+		}
+		w = headerGroups[0].headers[index].getHeaderProps().style.width;
 		w = w.split('p');
 		w[0] = w[0] - 1;
 		w = w.join('p')
 		return { width: w }
+
 	}
-	
+
 	const clear = () => {
 
 	}
@@ -499,7 +511,7 @@ const ReactTable = (props) => {
 
 																		(<DropDown
 
-																			ID={Id}
+																			ID={incrementId()}
 																			length={column.length}
 																			columns={columns[Id]}
 																			allColumns={columns}
