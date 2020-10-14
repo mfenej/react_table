@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useBlockLayout, useSortBy, useTable, useResizeColumns, useGroupBy, useExpanded } from 'react-table';
+import { useBlockLayout, useSortBy, useTable, useResizeColumns, useGroupBy, useExpanded, useColumnOrder } from 'react-table';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 import { FixedSizeList } from 'react-window';
 import * as actions from '../../store/actions/index';
 // import AutoSizer from 'react-virtualized-auto-sizer';
@@ -9,6 +11,7 @@ import classes from './ReactTable.module.css';
 import icon from '../../assets/svg/all.svg';
 let allData;
 const ReactTable = (props) => {
+	const currentColOrder = React.useRef();
 	// array of object each object is a row
 	const [data, setData] = useState([]);
 	useEffect(() => {
@@ -41,7 +44,7 @@ const ReactTable = (props) => {
 
 		return [day, month, year].join('-');
 	};
-	let Id = -1;
+	let Id = 0;
 	// const test = () => {
 	// 	Id++;
 	// 	return (
@@ -131,14 +134,7 @@ const ReactTable = (props) => {
 	);
 
 	//ids of input fileds for local column search
-	const localSearchIds = [
-		'code',
-		'label',
-		'valid form',
-		'valid to',
-		'airport iata',
-		'remarks',
-	];
+	
 
 	const displayData = useCallback(
 		(el) => {
@@ -189,7 +185,7 @@ const ReactTable = (props) => {
 		});
 	};
 
-	const searchColumn = (inputId, value,select) => {
+	const searchColumn = (inputId, value, select) => {
 		let input;
 		let id = inputId;
 		let selectVal = 'contains';
@@ -211,7 +207,7 @@ const ReactTable = (props) => {
 				if (el.id === id)
 					access = el.accessor
 			})
-			
+
 			let matchedData = [];
 			allData.map((el) => {
 				arrOfInputs.map((inp) => {
@@ -256,17 +252,21 @@ const ReactTable = (props) => {
 		toggleHideColumn,
 		toggleGroupBy,
 		resetResizing,
+		setColumnOrder,
+		allColumns,
 	} = useTable(
 		{
 			columns,
 			data,
 			defaultColumn,
 		},
+		useColumnOrder,
 		useBlockLayout,
 		useResizeColumns,
 		useGroupBy,
 		useSortBy,
 		useExpanded,
+
 		// Our custom plugin to add the expander column
 		hooks => {
 			hooks.useControlledState.push(useControlledState)
@@ -333,6 +333,10 @@ const ReactTable = (props) => {
 			})
 		});
 
+	let localSearchIds = [];
+	allColumns.map((el) => {
+		localSearchIds.push(el.id)
+	})
 	useEffect(() => {
 		if (props.columnsToHide !== null) {
 			props.columnsToHide.map((el) => {
@@ -355,8 +359,8 @@ const ReactTable = (props) => {
 			return (
 				<tr {...row.getRowProps()}
 					style={{
-					...row.getRowProps().style,
-					style
+						...row.getRowProps().style,
+						style
 					}}
 				>
 					{row.cells.map((cell) => {
@@ -405,7 +409,8 @@ const ReactTable = (props) => {
 		return unique;
 	};
 
-	const clear = (code) => {
+	const setSearchBoxSize = (code) => {
+		Id = Id++;
 		let index = localSearchIds.indexOf(code);
 		let w;
 		headerGroups.map((headerGroup) => {
@@ -413,8 +418,12 @@ const ReactTable = (props) => {
 		})
 		w = w.split('p');
 		w[0] = w[0] - 1;
-		w=w.join('p')
-		return {width:w}
+		w = w.join('p')
+		return { width: w }
+	}
+	
+	const clear = () => {
+
 	}
 	return (
 
@@ -427,53 +436,98 @@ const ReactTable = (props) => {
 				<option value="1000000">1,000,000</option>
 			</select>
 			<button onClick={clear}>dcd</button>
+
 			<table {...getTableProps()} className={classes.table}>
 				<thead>
+
 					{headerGroups.map((headerGroup) => (
-						<tr {...headerGroup.getHeaderGroupProps()}>
-							{headerGroup.headers.map((column) => (
-								//the headers
+						<DragDropContext
+							onDragStart={() => {
 
-								<th
-									{...column.getHeaderProps(column.getSortByToggleProps())}
-									className={classes.table__menu__item}
-								>
-									{/* {
-										column.canGroupBy ? (
-											// If the column can be grouped, let's add a toggle
-											<span {...column.getGroupByToggleProps()}>
-												{column.isGrouped ? '🛑 ' : '👊 '}
-											</span>
-										) : null
-									} */}
-									<div className={classes.table__header}>
-										<div style={{ width: 'max-content' }}>
-											{column.render('Header')}
-										</div>
+								currentColOrder.current = allColumns.map(o => o.id);
+							}}
 
-										{
-											(Id++,
-												(<DropDown
-													length={column.length}
-													columns={columns[Id]}
-													allColumns={columns}
-													data={dataFiltration(data, columns[Id])}
-													ID={Id}
-													hiddenCol={props.columnsToHide}
-													resetsizing={resetResizing}
-													groupBy={toggleGroupBy}
-												localSearchIds={localSearchIds}
-												searchColumn={searchColumn}
-												/>))
-										}
-										<div
-											{...column.getResizerProps()}
-											className={classes.resizer}
-										/>
-									</div>
-								</th>
-							))}
-						</tr>
+							onDragUpdate={(dragUpdateObj, b) => {
+								// console.log("onDragUpdate", dragUpdateObj, b);
+
+								const colOrder = [...currentColOrder.current];
+								const sIndex = dragUpdateObj.source.index;
+								const dIndex =
+									dragUpdateObj.destination && dragUpdateObj.destination.index;
+
+								if (typeof sIndex === "number" && typeof dIndex === "number") {
+									colOrder.splice(sIndex, 1);
+									colOrder.splice(dIndex, 0, dragUpdateObj.draggableId);
+									setColumnOrder(colOrder);
+								}
+							}}
+						>
+							<Droppable droppableId="droppable" direction="horizontal">
+
+								{(droppableProvided, snapshot) => (
+									<tr {...headerGroup.getHeaderGroupProps()}
+										ref={droppableProvided.innerRef}
+									>
+
+										{headerGroup.headers.map((column, index) => (
+											//the headers
+											<Draggable
+												key={column.id}
+												draggableId={column.id}
+												index={index}
+												isDragDisabled={!column.accessor}
+											>
+
+												{(provided, snapshot) => {
+													return (
+
+														<th
+															{...column.getHeaderProps(column.getSortByToggleProps())}
+															className={classes.table__menu__item}
+														>
+															<div
+																{...provided.draggableProps}
+																{...provided.dragHandleProps}
+																ref={provided.innerRef}
+															>
+																<div className={classes.table__header}>
+																	<div style={{ width: 'max-content' }}>
+																		{column.render('Header')}
+																	</div>
+
+																	{
+
+																		(<DropDown
+
+																			ID={Id}
+																			length={column.length}
+																			columns={columns[Id]}
+																			allColumns={columns}
+																			data={dataFiltration(data, columns[Id])}
+																			hiddenCol={props.columnsToHide}
+																			resetsizing={resetResizing}
+																			groupBy={toggleGroupBy}
+																			localSearchIds={localSearchIds}
+																			searchColumn={searchColumn}
+																		/>)
+																	}
+																	<div
+																		{...column.getResizerProps()}
+																		className={classes.resizer}
+																	/>
+																</div>
+															</div>
+														</th>
+													);
+												}}
+
+											</Draggable>
+										))}
+									</tr>
+								)}
+
+							</Droppable>
+						</DragDropContext>
 					))}
 				</thead>
 				<tbody {...getTableBodyProps()}>
@@ -484,7 +538,7 @@ const ReactTable = (props) => {
 									type="text"
 									id={element + 'search'}
 									className={classes.table__searchInput}
-									style={clear(element)}
+									style={setSearchBoxSize(element)}
 									onChange={() => {
 										searchColumn(element);
 									}}
