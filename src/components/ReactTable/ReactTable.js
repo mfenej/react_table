@@ -11,7 +11,7 @@ import classes from './ReactTable.module.css';
 import icon from '../../assets/svg/all.svg';
 let allData;
 const ReactTable = (props) => {
-	let Id = -1;
+	let Id=-1;
 	const currentColOrder = React.useRef();
 	// array of object each object is a row
 	const [data, setData] = useState([]);
@@ -444,27 +444,30 @@ const ReactTable = (props) => {
 		}
 	}, [props.searchVal]);
 
-	const dataFiltration = (data, column) => {
+	const dataFiltration = (data, id) => {
 		let unique = [];
-		//console.log(allColumns)
-		if (column !== undefined)
-			if (props.columnsToHide.length === 0) {
-				data.map((el) => {
-					if (!unique.includes(el[column.accessor])) {
-						unique.push(el[column.accessor]);
-					}
-				});
-			} else {
-			//	console.log(columns.indexOf(column))
-				data.map((el) => {
-					if (!unique.includes(el[column.accessor])) {
-						unique.push(el[column.accessor]);
-					}
-				});
-			}
+		let index = 0;
+	
+		if (id % 1 === 0) {
+			//console.log(headerGroups[0].headers[id])
+
+			columns.map((el, i) => {
+				if (el.id === headerGroups[0].headers[id].id) {
+					index = i;
+				}
+			})
+
+			data.map((el) => {
+				if (!unique.includes(el[columns[index].accessor])) {
+					unique.push(el[columns[index].accessor]);
+				}
+			})
+		}
 		return unique;
 	};
 	const incrementId = () => {
+		if (Id === 5)
+			Id = -1;
 		Id = Id + 0.5;
 		return Id
 	}
@@ -500,6 +503,7 @@ const ReactTable = (props) => {
 
 			<table {...getTableProps()} className={classes.table}>
 				<thead>
+				
 
 					{headerGroups.map((headerGroup) => (
 						<DragDropContext
@@ -557,14 +561,14 @@ const ReactTable = (props) => {
 																	</div>
 
 																	{
-
+																		
 																		(<DropDown
 
 																			ID={incrementId()}
 																			length={column.length}
 																			columns={columns[Id]}
 																			allColumns={columns}
-																			data={dataFiltration(data, columns[Id])}
+																			data={dataFiltration(data, Id)}
 																			hiddenCol={props.columnsToHide}
 																			resetsizing={resetResizing}
 																			groupBy={toggleGroupBy}
