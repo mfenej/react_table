@@ -419,14 +419,17 @@ const ReactTable = (props) => {
 				index = i;
 		})
 		let w;
-		console.log(props.columnsToHide[index])
+		//checking if the column is hiden so the search box should be hiden
 		if (props.columnsToHide[index] !== undefined && props.columnsToHide[index].val)
 			return { width: 0 };
-
+		//looping back to the correct column in the headerGroup
+		//this roles only if ther is a hiden column
 		while (headerGroups[0].headers[index] === undefined || headerGroups[0].headers[index].id !== code) {
 			index--;
 		}
+		//geting the width of the header
 		w = headerGroups[0].headers[index].getHeaderProps().style.width;
+		//getting the searchBox to the correct size
 		w = w.split('p');
 		w[0] = w[0] - 1;
 		w = w.join('p')
