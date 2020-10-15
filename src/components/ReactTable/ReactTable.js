@@ -245,7 +245,7 @@ const ReactTable = (props) => {
 				case 'notEqual':
 					allData.map((el) => {
 						arrOfInputs.map((inp) => {
-							if (inp !== '' && el.[access].toUpperCase()!==(inp.toUpperCase()))
+							if (inp !== '' && el.[access].toUpperCase() !== (inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
@@ -253,7 +253,7 @@ const ReactTable = (props) => {
 				case 'equal':
 					allData.map((el) => {
 						arrOfInputs.map((inp) => {
-							if (inp !== '' && el.[access].toUpperCase()===(inp.toUpperCase()))
+							if (inp !== '' && el.[access].toUpperCase() === (inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
@@ -446,11 +446,22 @@ const ReactTable = (props) => {
 
 	const dataFiltration = (data, column) => {
 		let unique = [];
-		data.map((el) => {
-			if (column !== undefined && !unique.includes(el[column.accessor])) {
-				unique.push(el[column.accessor]);
+		//console.log(allColumns)
+		if (column !== undefined)
+			if (props.columnsToHide.length === 0) {
+				data.map((el) => {
+					if (!unique.includes(el[column.accessor])) {
+						unique.push(el[column.accessor]);
+					}
+				});
+			} else {
+			//	console.log(columns.indexOf(column))
+				data.map((el) => {
+					if (!unique.includes(el[column.accessor])) {
+						unique.push(el[column.accessor]);
+					}
+				});
 			}
-		});
 		return unique;
 	};
 	const incrementId = () => {
@@ -458,28 +469,18 @@ const ReactTable = (props) => {
 		return Id
 	}
 	const setSearchBoxSize = (code) => {
-		let index;
-		columns.map((el, i) => {
-			if (el.id === code)
-				index = i;
-		})
 		let w;
-		//checking if the column is hiden so the search box should be hiden
-		if (props.columnsToHide[index] !== undefined && props.columnsToHide[index].val)
-			return { width: 0 };
-		//looping back to the correct column in the headerGroup
-		//this roles only if ther is a hiden column
-		while (headerGroups[0].headers[index] === undefined || headerGroups[0].headers[index].id !== code) {
-			index--;
-		}
-		//geting the width of the header
-		w = headerGroups[0].headers[index].getHeaderProps().style.width;
-		//getting the searchBox to the correct size
-		w = w.split('p');
-		w[0] = w[0] - 1;
-		w = w.join('p')
-		return { width: w }
-
+			headerGroups[0].headers.map((el, i) => {
+				if (el.id === code) {
+					//geting the width of the header
+					w = headerGroups[0].headers[i].getHeaderProps().style.width;
+					//getting the searchBox to the correct size
+					w = w.split('p');
+					w[0] = w[0] - 1;
+					w = w.join('p')
+				}
+			})
+		return { width: w };
 	}
 
 	const clear = () => {
