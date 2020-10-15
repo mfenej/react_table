@@ -209,12 +209,58 @@ const ReactTable = (props) => {
 			})
 
 			let matchedData = [];
-			allData.map((el) => {
-				arrOfInputs.map((inp) => {
-					if (inp !== '' && el.[access].toUpperCase().includes(inp.toUpperCase()))
-						matchedData.push(el);
-				})
-			})
+			switch (selectVal) {
+				case 'contains':
+					allData.map((el) => {
+						arrOfInputs.map((inp) => {
+							if (inp !== '' && el.[access].toUpperCase().includes(inp.toUpperCase()))
+								matchedData.push(el);
+						})
+					})
+					break;
+				case 'notContains':
+					allData.map((el) => {
+						arrOfInputs.map((inp) => {
+							if (inp !== '' && !el.[access].toUpperCase().includes(inp.toUpperCase()))
+								matchedData.push(el);
+						})
+					})
+					break;
+				case 'startWith':
+					allData.map((el) => {
+						arrOfInputs.map((inp) => {
+							if (inp !== '' && el.[access].toUpperCase().startsWith(inp.toUpperCase()))
+								matchedData.push(el);
+						})
+					})
+					break;
+				case 'endsWith':
+					allData.map((el) => {
+						arrOfInputs.map((inp) => {
+							if (inp !== '' && el.[access].toUpperCase().endsWith(inp.toUpperCase()))
+								matchedData.push(el);
+						})
+					})
+					break;
+				case 'notEqual':
+					allData.map((el) => {
+						arrOfInputs.map((inp) => {
+							if (inp !== '' && el.[access].toUpperCase()!==(inp.toUpperCase()))
+								matchedData.push(el);
+						})
+					})
+					break;
+				case 'equal':
+					allData.map((el) => {
+						arrOfInputs.map((inp) => {
+							if (inp !== '' && el.[access].toUpperCase()===(inp.toUpperCase()))
+								matchedData.push(el);
+						})
+					})
+					break;
+				default:
+					alert('You were trying to search How on earth did i get here')
+			}
 			setData(matchedData);
 		}
 
@@ -372,7 +418,6 @@ const ReactTable = (props) => {
 									...cell.getCellProps().style,
 									position: 'relative',
 									cursor: 'pointer',
-									// width: '9rem',
 									padding: '1rem 2.9rem',
 									textAlign: 'center',
 									fontSize: '1rem',
