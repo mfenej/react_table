@@ -141,8 +141,8 @@ const DropDown = (props) => {
 
 	const toggleHideDropDown = React.useCallback((e) => {
 		let element = document.getElementById(`dropDownContainer${props.ID}`);
-
-		if (element !== null && element.contains(e.target)) {
+		if (element !== null)
+		if (element.contains(e.target)) {
 
 			document.getElementById(`dropDown${props.ID}`).style.display = 'block';
 		} else {

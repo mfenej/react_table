@@ -402,14 +402,14 @@ const ReactTable = (props) => {
 			const row = rows[index];
 			prepareRow(row);
 			return (
-				<tr {...row.getRowProps({ style,})}
+				<tr {...row.getRowProps({ style, })}
 				>
 					{row.cells.map((cell) => {
 						return (
 							<td
 								onClick={displayData}
 								{...cell.getCellProps({
-									style:{
+									style: {
 										position: 'relative',
 										cursor: 'pointer',
 										padding: '1rem 2.9rem',
@@ -417,7 +417,8 @@ const ReactTable = (props) => {
 										fontSize: '1rem',
 										fontWeight: '600',
 										lineHeight: '1rem',
-									}})}
+									}
+								})}
 
 							// className={classes.Test}
 							>
@@ -480,7 +481,9 @@ const ReactTable = (props) => {
 		})
 		return { width: w };
 	}
-
+	const fun = (isDragging) => ({
+		cursor: isDragging ? 'pointer':'wait'
+	});
 	const clear = () => {
 
 	}
@@ -505,6 +508,7 @@ const ReactTable = (props) => {
 							onDragStart={() => {
 
 								currentColOrder.current = allColumns.map(o => o.id);
+
 							}}
 
 							onDragUpdate={(dragUpdateObj, b) => {
@@ -527,6 +531,9 @@ const ReactTable = (props) => {
 								{(droppableProvided, snapshot) => (
 									<tr {...headerGroup.getHeaderGroupProps()}
 										ref={droppableProvided.innerRef}
+										style={
+											fun(snapshot.isDragging)
+										}
 									>
 
 										{headerGroup.headers.map((column, index) => (
