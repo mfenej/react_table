@@ -57,19 +57,19 @@ button:focus{
 
 .BTN__Search {
 	width: 50%;
-	height: 20%;
+	height: 15%;
 	border: 0;
-	font-size:1rem;
+	font-size: 1rem;
 	color: #b3bcc4;
-	background-color: transparent;
+	background-color: #354f69;
 }
 .BTN__SearchDark {
 	width: 50%;
-	height: 20%;
+	height: 15%;
 	border: 0;
-	font-size:1rem;
+	font-size: 1rem;
 	color: #b3bcc4;
-	background-color:#28425c;
+	background-color: #28425c;
 }
 
 .BTN__clear {

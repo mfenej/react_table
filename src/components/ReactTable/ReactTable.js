@@ -605,7 +605,6 @@ const ReactTable = (props) => {
 								/>
 							</th>
 						))}
-						{console.log(rows)}
 					</tr>
 					<FixedSizeList
 						height={420}

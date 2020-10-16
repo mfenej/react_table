@@ -15,9 +15,6 @@ const SearchInput = props => {
     }, [searchValue, selectValue]);
     
     return <div style={{ width: '100%', height: '100%', backgroundColor: '#354f69' }}>
-        <button className={classes.BTN__Search}>NORMAL</button>
-
-        <button onClick={() => props.contentDropSearchValue()} className={classes.BTN__SearchDark}>Value</button>
 
         <select onChange={e => setSelectValue(e.target.value)} className={classes.search__select}>
             <option value='contains'>Contains</option>

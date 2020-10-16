@@ -20,6 +20,9 @@ let BTNSearch = null;
 let BTNCheck = null;
 let toRender = null;
 
+let toReturn = null;
+let BTNNormal = null;
+let BTNValue = null;
 
 
 const DropDown = (props) => {
@@ -58,7 +61,7 @@ const DropDown = (props) => {
 
 			<button
 				onClick={() => {
-					contentDropSearchInput();
+					contentDropSearch('inp');
 				}}
 				id={`dropDownSearchBTN${props.ID}`}
 				className={BTNSearch}
@@ -82,12 +85,38 @@ const DropDown = (props) => {
 		</div>
 
 	);
+	const contentDropSearch = (type) => {
+		BTNMain = classes.table__menu__item__btn__closed;
+		BTNSearch = classes.table__menu__item__btn__open;
+		BTNCheck = classes.table__menu__item__btn__closed;
+		if (type === 'inp') {
+			toReturn = contentDropSearchInput();
+			BTNNormal = classes.BTN__SearchDark;
+			BTNValue = classes.BTN__Search;
+		} else {
+			toReturn = contentDropSearchValue();
+			BTNNormal = classes.BTN__Search;
+			BTNValue = classes.BTN__SearchDark;
+		}
+		toRender =
+			<React.Fragment>
+				<button onClick={() => {
+					toReturn = contentDropSearch('inp');
+				}}
+					className={BTNNormal}>NORMAL</button>
 
+				<button onClick={() => {
+					toReturn = contentDropSearch('val');
+				}}
+					className={BTNValue}>Value</button>
+				{toReturn}
+			</React.Fragment>
+	}
 	const contentDropSearchInput = () => {
 		BTNMain = classes.table__menu__item__btn__closed;
 		BTNSearch = classes.table__menu__item__btn__open;
 		BTNCheck = classes.table__menu__item__btn__closed;
-		toRender = <SearchInput
+		return <SearchInput
 			searchColumn={props.searchColumn}
 			contentDropSearchValue={contentDropSearchValue}
 			ID={props.ID}
@@ -97,7 +126,7 @@ const DropDown = (props) => {
 		BTNMain = classes.table__menu__item__btn__closed;
 		BTNSearch = classes.table__menu__item__btn__open;
 		BTNCheck = classes.table__menu__item__btn__closed;
-		toRender = <SearchValue
+		return <SearchValue
 			id={props.ID}
 			data={props.data}
 			contentDropSearchInput={contentDropSearchInput}
@@ -110,22 +139,24 @@ const DropDown = (props) => {
 		toRender = <Check allColumns={allColumns} hiddenCol={hiddenCol} />
 	};
 
-	const eventHandlers = useMemo(() => ({
-		onFocus: () => {
-			window.clearTimeout(timeOut)
-		},
-		onBlur: () => {
-			//timeOut = setTimeout(hideAllDropDown, 1)
+	const toggleHideDropDown = React.useCallback((e) => {
+		let element = document.getElementById(`ss${props.ID}`);
+
+		if (element !== null && element.contains(e.target)) {
+
+			document.getElementById(`dropDown${props.ID}`).style.display = 'block';
+		} else {
+
+			document.getElementById(`dropDown${props.ID}`).style.display = 'none';
 		}
-	}), []);
-	const t = (e) => {
 		//e.stopPropagation()
-	}
+
+	}, [props.ID])
+	
+	document.addEventListener('click', toggleHideDropDown);
 	return (
 		<div
-			id={'ss'}
-			onClick={t}
-			{...eventHandlers}
+			id={`ss${props.ID}`}
 		>
 			<button
 				onClick={() => {

@@ -79,8 +79,7 @@ const SearchValue = props => {
 
 
     return <div style={{ width: '100%', height: '100%', backgroundColor: '#354f69' }}>
-        <button onClick={() => props.contentDropSearchInput()} className={classes.BTN__SearchDark}>NORMAL</button>
-        <button className={classes.BTN__Search}>Value</button>
+        
         <div className={classes.checkBoxCont} style={{ height: '11.2rem', overflowY: 'scroll' }}>
 
             <CheckBox text={'SelectAll'}

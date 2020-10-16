@@ -1,22 +1,6 @@
 button:focus {
 	outline: none;
 }
-.BTN__Search {
-	width: 50%;
-	height: 15%;
-	border: 0;
-	font-size: 1rem;
-	color: #b3bcc4;
-	background-color: transparent;
-}
-.BTN__SearchDark {
-	width: 50%;
-	height: 15%;
-	border: 0;
-	font-size: 1rem;
-	color: #b3bcc4;
-	background-color: #28425c;
-}
 .checkBoxCont {
 	/* check the inline styling */
 	/* This Doesn't Work ignore it */
