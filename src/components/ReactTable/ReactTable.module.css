@@ -25,24 +25,24 @@ table {
 	border-radius: 1rem;
 }
 .resizer {
-        display: inline-block;
-        background: #b3bcc4;
-        width: 2px;
-        height: 100%;
-        position: absolute;
-        right: -0.5rem;
-        top: 0;
-        transform: translateX(50%);
-        z-index: 1;
-        touch-action:none;
-      }
+	display: inline-block;
+	background: #b3bcc4;
+	width: 2px;
+	height: 100%;
+	position: absolute;
+	right: -0.5rem;
+	top: 0;
+	transform: translateX(50%);
+	z-index: 1;
+	touch-action: none;
+}
 
 .table__header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 3rem;
-
+	cursor: pointer;
 	position: relative;
 }
 
