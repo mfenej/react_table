@@ -5,13 +5,12 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import { FixedSizeList } from 'react-window';
 import * as actions from '../../store/actions/index';
-// import AutoSizer from 'react-virtualized-auto-sizer';
 import DropDown from '../DropDown/DropDown';
 import classes from './ReactTable.module.css';
 import icon from '../../assets/svg/all.svg';
 let allData;
 const ReactTable = (props) => {
-	let Id=-1;
+	let Id = -1;
 	const currentColOrder = React.useRef();
 	// array of object each object is a row
 	const [data, setData] = useState([]);
@@ -403,27 +402,23 @@ const ReactTable = (props) => {
 			const row = rows[index];
 			prepareRow(row);
 			return (
-				<tr {...row.getRowProps()}
-					style={{
-						...row.getRowProps().style,
-						style
-					}}
+				<tr {...row.getRowProps({ style,})}
 				>
 					{row.cells.map((cell) => {
 						return (
 							<td
 								onClick={displayData}
-								{...cell.getCellProps()}
-								style={{
-									...cell.getCellProps().style,
-									position: 'relative',
-									cursor: 'pointer',
-									padding: '1rem 2.9rem',
-									textAlign: 'center',
-									fontSize: '1rem',
-									fontWeight: '600',
-									lineHeight: '1rem',
-								}}
+								{...cell.getCellProps({
+									style:{
+										position: 'relative',
+										cursor: 'pointer',
+										padding: '1rem 2.9rem',
+										textAlign: 'center',
+										fontSize: '1rem',
+										fontWeight: '600',
+										lineHeight: '1rem',
+									}})}
+
 							// className={classes.Test}
 							>
 								{cell.render('Cell')}
@@ -447,7 +442,7 @@ const ReactTable = (props) => {
 	const dataFiltration = (data, id) => {
 		let unique = [];
 		let index = 0;
-	
+
 		if (id % 1 === 0) {
 			//console.log(headerGroups[0].headers[id])
 
@@ -473,16 +468,16 @@ const ReactTable = (props) => {
 	}
 	const setSearchBoxSize = (code) => {
 		let w;
-			headerGroups[0].headers.map((el, i) => {
-				if (el.id === code) {
-					//geting the width of the header
-					w = headerGroups[0].headers[i].getHeaderProps().style.width;
-					//getting the searchBox to the correct size
-					w = w.split('p');
-					w[0] = w[0] - 1;
-					w = w.join('p')
-				}
-			})
+		headerGroups[0].headers.map((el, i) => {
+			if (el.id === code) {
+				//geting the width of the header
+				w = headerGroups[0].headers[i].getHeaderProps().style.width;
+				//getting the searchBox to the correct size
+				w = w.split('p');
+				w[0] = w[0] - 1;
+				w = w.join('p')
+			}
+		})
 		return { width: w };
 	}
 
@@ -503,7 +498,7 @@ const ReactTable = (props) => {
 
 			<table {...getTableProps()} className={classes.table}>
 				<thead>
-				
+
 
 					{headerGroups.map((headerGroup) => (
 						<DragDropContext
@@ -561,7 +556,7 @@ const ReactTable = (props) => {
 																	</div>
 
 																	{
-																		
+
 																		(<DropDown
 
 																			ID={incrementId()}
@@ -610,11 +605,12 @@ const ReactTable = (props) => {
 								/>
 							</th>
 						))}
+						{console.log(rows)}
 					</tr>
 					<FixedSizeList
-						height={800}
+						height={420}
 						itemCount={rows.length}
-						itemSize={30}
+						itemSize={35}
 						width={totalColumnsWidth}
 						className={classes.List}
 					>
