@@ -140,7 +140,7 @@ const DropDown = (props) => {
 	};
 
 	const toggleHideDropDown = React.useCallback((e) => {
-		let element = document.getElementById(`ss${props.ID}`);
+		let element = document.getElementById(`dropDownContainer${props.ID}`);
 
 		if (element !== null && element.contains(e.target)) {
 
@@ -156,7 +156,7 @@ const DropDown = (props) => {
 	document.addEventListener('click', toggleHideDropDown);
 	return (
 		<div
-			id={`ss${props.ID}`}
+			id={`dropDownContainer${props.ID}`}
 		>
 			<button
 				onClick={() => {
