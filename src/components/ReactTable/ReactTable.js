@@ -493,6 +493,7 @@ const ReactTable = (props) => {
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
+				boxShadow:' 0 4px 0 0 rgba(3, 3, 3, 0.089)',
 			})
 		}
 	};
