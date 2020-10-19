@@ -475,18 +475,31 @@ const ReactTable = (props) => {
 				w = headerGroups[0].headers[i].getHeaderProps().style.width;
 				//getting the searchBox to the correct size
 				w = w.split('p');
-				w[0] = w[0] - 1;
+				w[0] = w[0] - 2;
 				w = w.join('p')
 			}
 		})
 		return { width: w };
 	}
-	const fun = (isDragging) => ({
-		cursor: isDragging ? 'pointer':'wait'
-	});
+	const fun = (isDragging, draggableStyle) => {
+		//...draggableStyle,
+		if (isDragging) {
+			return ({
+				background: "white",
+				zIndex: '10',
+				width: '100%',
+				height: '100%',
+				cursor: 'wait',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+			})
+		}
+	};
 	const clear = () => {
 
 	}
+
 	return (
 
 		<div className={classes.Table}>
@@ -531,9 +544,6 @@ const ReactTable = (props) => {
 								{(droppableProvided, snapshot) => (
 									<tr {...headerGroup.getHeaderGroupProps()}
 										ref={droppableProvided.innerRef}
-										style={
-											fun(snapshot.isDragging)
-										}
 									>
 
 										{headerGroup.headers.map((column, index) => (
@@ -543,6 +553,7 @@ const ReactTable = (props) => {
 												draggableId={column.id}
 												index={index}
 												isDragDisabled={!column.accessor}
+
 											>
 
 												{(provided, snapshot) => {
@@ -551,14 +562,24 @@ const ReactTable = (props) => {
 														<th
 															{...column.getHeaderProps(column.getSortByToggleProps())}
 															className={classes.table__menu__item}
+
 														>
 															<div
 																{...provided.draggableProps}
 																{...provided.dragHandleProps}
 																ref={provided.innerRef}
 															>
-																<div className={classes.table__header}>
-																	<div style={{ width: 'max-content' }}>
+																<div className={classes.table__header}
+																>
+																	<div style={{
+																		width: 'max-content',
+																		...fun(
+																			snapshot.isDragging,
+																			provided.draggableProps.style
+																		),
+
+																	}}>
+
 																		{column.render('Header')}
 																	</div>
 

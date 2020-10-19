@@ -1,1 +1,5 @@
+Fixed size list
 https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/virtualized-rows?file=/src/App.js:3214-3217
+
+Drag and drop
+https://codesandbox.io/s/gargroh-v7-drag-column-beautiful-react-dnd-encww?file=/src/App.js:1889-1900
