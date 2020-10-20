@@ -174,15 +174,15 @@ const DropDown = (props) => {
 				className={'drop'}
 				style={{
 					position: 'absolute',
-					width: '11.5rem',
+					width: 'max-content',
 					height: '16.5rem',
-					top: '0rem',
-					right: "-8.45rem",
+					top: '0.3rem',
+					right: "-10.45rem",
 					backgroundColor: '#3f5b76',
 					zIndex: '2',
 					borderRadius: '0.4rem',
 					display: 'none',
-					overflow: 'hidden',
+					//overflow: 'hidden',
 					fontFamily: 'unset',
 				}}
 			>
@@ -193,7 +193,7 @@ const DropDown = (props) => {
 						fontWeight: 'normal',
 						fontSize: '1rem',
 						textAlign: 'left',
-						height: '100%',
+						height: '83.4%',
 					}}
 				>
 					{toRender}

@@ -2,14 +2,16 @@ import React from 'react';
 import icon from '../../assets/svg/all.svg';
 const DropDownItem = props => (
     <button style={{
-        height: "17%",
+        height: "20%",
         width:'max-content',
         backgroundColor: "#354f69",
         color: '#e9edf0',
         display: 'flex',
-        fontSize: '1rem',
+        fontSize: '1.1rem',
         lineHeight:'1rem',
-        border:'none',
+        border: 'none',
+        alignItems: 'center'
+        
     }} onClick={props.act}>
         <svg style={{
             height: '1.5rem',
