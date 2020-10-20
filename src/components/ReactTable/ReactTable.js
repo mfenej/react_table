@@ -481,8 +481,7 @@ const ReactTable = (props) => {
 		})
 		return { width: w };
 	}
-	const fun = (isDragging, draggableStyle) => {
-		//...draggableStyle,
+	const dragDropStyle = (isDragging) => {
 		if (isDragging) {
 			return ({
 				background: "white",
@@ -574,9 +573,8 @@ const ReactTable = (props) => {
 																>
 																	<div style={{
 																		width: 'max-content',
-																		...fun(
+																		...dragDropStyle(
 																			snapshot.isDragging,
-																			provided.draggableProps.style
 																		),
 
 																	}}>
