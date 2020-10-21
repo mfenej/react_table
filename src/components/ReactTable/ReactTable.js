@@ -416,7 +416,7 @@ const ReactTable = (props) => {
 										textAlign: 'center',
 										fontSize: '1rem',
 										fontWeight: '600',
-										lineHeight: '1rem',
+										lineHeight: '1.5rem',
 									}
 								})}
 
@@ -499,7 +499,7 @@ const ReactTable = (props) => {
 	const clear = () => {
 
 	}
-
+	const [a, seta] = useState(false);
 	return (
 
 		<div className={classes.Table}>
@@ -552,7 +552,7 @@ const ReactTable = (props) => {
 												key={column.id}
 												draggableId={column.id}
 												index={index}
-												isDragDisabled={!column.accessor}
+												isDragDisabled={!column.accessor||a}
 
 											>
 
@@ -601,6 +601,8 @@ const ReactTable = (props) => {
 																	<div
 																		{...column.getResizerProps()}
 																		className={classes.resizer}
+																		onMouseEnter={()=>{seta(true)}}
+																		onMouseLeave={()=>{seta(false)}}
 																	/>
 																</div>
 															</div>
