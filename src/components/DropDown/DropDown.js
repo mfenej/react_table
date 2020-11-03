@@ -7,7 +7,6 @@ import SearchInput from './SearchInput/SearchInput';
 import SearchValue from './SearchValue/SearchValue';
 import Check from './Check/Check';
 
-let timeOut;
 const hideAllDropDown = () => {
 	let d = document.getElementsByClassName('drop');
 	for (let item of d) {
@@ -42,9 +41,9 @@ const DropDown = (props) => {
 			groupBy={props.groupBy}
 			localSearchIds={props.localSearchIds}
 			index={id}
+			reset={props.reset}
 		/>
 	};
-
 	const menuBTNS = () => (
 		<div style={{ display: 'flex' }}>
 			<button
@@ -174,7 +173,7 @@ const DropDown = (props) => {
 				className={'drop'}
 				style={{
 					position: 'absolute',
-					width: 'max-content',
+					width: '14rem',
 					height: '16.5rem',
 					top: '0.3rem',
 					right: "-10.45rem",

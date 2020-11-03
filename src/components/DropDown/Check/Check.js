@@ -43,7 +43,7 @@ const Check = props => {
         });
       props.onChangeColumns(arrToReturn)
     }
-    return <div style={{ width: '100%', height: '85%', backgroundColor: '#354f69'}}>
+    return <div style={{ width: '100%', height: '100%', backgroundColor: '#354f69'}}>
         {boolChecked.map((el, i) => {
             return <CheckBox
                     text={el.id}

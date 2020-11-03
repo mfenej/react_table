@@ -3,3 +3,6 @@ https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/v
 
 Drag and drop
 https://codesandbox.io/s/gargroh-v7-drag-column-beautiful-react-dnd-encww?file=/src/App.js:1889-1900
+
+pin column 
+https://codesandbox.io/s/9y7oolr85p

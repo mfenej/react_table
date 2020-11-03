@@ -14,7 +14,7 @@ const SearchInput = props => {
 
     }, [searchValue, selectValue]);
     
-    return <div style={{ width: '100%', height: '100%', backgroundColor: '#354f69' }}>
+    return <div style={{ width: '100%', height: '80%', backgroundColor: '#354f69' }}>
 
         <select onChange={e => setSelectValue(e.target.value)} className={classes.search__select}>
             <option value='contains'>Contains</option>

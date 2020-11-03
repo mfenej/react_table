@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useBlockLayout, useSortBy, useTable, useResizeColumns, useGroupBy, useExpanded, useColumnOrder } from 'react-table';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
+import { useSticky } from 'react-table-sticky';
 import { FixedSizeList } from 'react-window';
 import * as actions from '../../store/actions/index';
 import DropDown from '../DropDown/DropDown';
@@ -45,30 +45,6 @@ const ReactTable = (props) => {
 		return [day, month, year].join('-');
 	};
 
-	// const test = () => {
-	// 	return (
-	// 		<div style={{
-	// 			position:'relative',
-	// 			width: '5rem',
-	// 			height: '5rem',
-	// 			backgroundColor: 'red',
-	// 			marginTop:'5rem',
-	// 			zIndex:'4'
-	// 		}}>test</div>
-	// 		// <DropDown
-	// 		// 	length={column.length}
-	// 		// 	columns={columns[Id]}
-	// 		// 	allColumns={columns}
-	// 		// 	data={dataFiltration(data, columns[Id])}
-	// 		// 	ID={Id}
-	// 		// 	hiddenCol={props.columnsToHide}
-	// 		// 	resetsizing={resetResizing}
-	// 		// 	groupBy={toggleGroupBy}
-	// 		// 	localSearchIds={localSearchIds}
-	// 		// />
-	// 	)
-	// }
-	//the headers of the table
 	let columns = React.useMemo(
 		() => [
 			{
@@ -76,6 +52,7 @@ const ReactTable = (props) => {
 				//Header: <div>{'code'} {test()}</div>,
 				Header: 'code',
 				accessor: 'colCode', // accessor is the "key" in the data
+				// sticky: 'left',
 			},
 			{
 				id: 'label',
@@ -310,7 +287,9 @@ const ReactTable = (props) => {
 		useResizeColumns,
 		useGroupBy,
 		useSortBy,
+		useSticky,
 		useExpanded,
+
 
 		// Our custom plugin to add the expander column
 		hooks => {
@@ -402,7 +381,7 @@ const ReactTable = (props) => {
 			const row = rows[index];
 			prepareRow(row);
 			return (
-				<tr {...row.getRowProps({ style, })}
+				<tr {...row.getRowProps({ style})}
 				>
 					{row.cells.map((cell) => {
 						return (
@@ -440,7 +419,7 @@ const ReactTable = (props) => {
 		}
 	}, [props.searchVal]);
 
-	const dataFiltration = (data, id) => {
+	const dataFiltration = (data, id,col) => {
 		let unique = [];
 		let index = 0;
 
@@ -448,16 +427,15 @@ const ReactTable = (props) => {
 			//console.log(headerGroups[0].headers[id])
 
 			columns.map((el, i) => {
-				if (el.id === headerGroups[0].headers[id].id) {
+				if (el.id === col) {
 					index = i;
 				}
 			})
-
+			// l te3li2 men hal function
 			data.map((el) => {
-				if (!unique.includes(el[columns[index].accessor])) {
 					unique.push(el[columns[index].accessor]);
-				}
 			})
+			unique = [...new Set(unique)];
 		}
 		return unique;
 	};
@@ -468,7 +446,7 @@ const ReactTable = (props) => {
 		return Id
 	}
 	const setSearchBoxSize = (code) => {
-		let w;
+		let w = '150px';
 		headerGroups[0].headers.map((el, i) => {
 			if (el.id === code) {
 				//geting the width of the header
@@ -492,13 +470,25 @@ const ReactTable = (props) => {
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-				boxShadow:' 0 4px 0 0 rgba(3, 3, 3, 0.089)',
+				boxShadow: ' 0 4px 0 0 rgba(3, 3, 3, 0.089)',
 			})
 		}
 	};
-	const clear = () => {
-
+	const clear = (id) => {
+		toggleGroupBy(id, false)
+		let columnsOrder = allColumns.map(o => o.id);
+		let currentIndex = columnsOrder.indexOf(id);
+		let columnToReorder = columnsOrder[currentIndex];
+		columnsOrder.splice(currentIndex, 1);
+		let originalIndex;
+		columns.map((el, i) => {
+			if (el.id === id)
+				originalIndex = i;
+		})
+		columnsOrder.splice(originalIndex, 0, columnToReorder);
+		setColumnOrder(columnsOrder)
 	}
+
 	const [a, seta] = useState(false);
 	return (
 
@@ -508,7 +498,7 @@ const ReactTable = (props) => {
 				<option value="1000">1,000</option>
 				<option value="10000">10,000</option>
 				<option value="50000">50,000</option>
-				<option value="1000000">1,000,000</option>
+				<option value="1000000">1,000,000</option>4
 			</select>
 			<button onClick={clear}>dcd</button>
 
@@ -521,7 +511,6 @@ const ReactTable = (props) => {
 							onDragStart={() => {
 
 								currentColOrder.current = allColumns.map(o => o.id);
-
 							}}
 
 							onDragUpdate={(dragUpdateObj, b) => {
@@ -552,8 +541,7 @@ const ReactTable = (props) => {
 												key={column.id}
 												draggableId={column.id}
 												index={index}
-												isDragDisabled={!column.accessor||a}
-
+												isDragDisabled={!column.accessor || a}
 											>
 
 												{(provided, snapshot) => {
@@ -565,44 +553,46 @@ const ReactTable = (props) => {
 
 														>
 															<div
+																
 																{...provided.draggableProps}
 																{...provided.dragHandleProps}
 																ref={provided.innerRef}
 															>
 																<div className={classes.table__header}
 																>
-																	<div style={{
-																		width: 'max-content',
-																		...dragDropStyle(
-																			snapshot.isDragging,
-																		),
-
-																	}}>
+																	<div
+																		style={{
+																			width: 'max-content',
+																			...dragDropStyle(
+																				snapshot.isDragging,
+																			),
+																		}}>
 
 																		{column.render('Header')}
 																	</div>
 
 																	{
-
+																		
 																		(<DropDown
 
 																			ID={incrementId()}
 																			length={column.length}
 																			columns={columns[Id]}
 																			allColumns={columns}
-																			data={dataFiltration(data, Id)}
+																			data={dataFiltration(data, Id,column.id)}
 																			hiddenCol={props.columnsToHide}
 																			resetsizing={resetResizing}
 																			groupBy={toggleGroupBy}
 																			localSearchIds={localSearchIds}
 																			searchColumn={searchColumn}
+																			reset={clear}
 																		/>)
 																	}
 																	<div
 																		{...column.getResizerProps()}
 																		className={classes.resizer}
-																		onMouseEnter={()=>{seta(true)}}
-																		onMouseLeave={()=>{seta(false)}}
+																		onMouseEnter={() => { seta(true) }}
+																		onMouseLeave={() => { seta(false) }}
 																	/>
 																</div>
 															</div>
@@ -640,7 +630,6 @@ const ReactTable = (props) => {
 						itemCount={rows.length}
 						itemSize={35}
 						width={totalColumnsWidth}
-						className={classes.List}
 					>
 						{RenderRow}
 					</FixedSizeList>

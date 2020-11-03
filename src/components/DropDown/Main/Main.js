@@ -63,7 +63,7 @@ const Main = props => {
 
                 <a style={toolgroup_li_a}>Pin Column</a>
                 <svg style={svgStyle}>
-                        <use xlinkHref={`${icon}#icon-forward`} />
+                    <use xlinkHref={`${icon}#icon-forward`} />
                 </svg>
                 <ul style={{
                     display: isShown,
@@ -71,19 +71,19 @@ const Main = props => {
                 }}>
                     <li style={toolgroup_li_ul_li}>
                         <svg style={svgStyle}>
-                            <use xlinkHref={`${icon}#${'someThing' === '' ?'icon-check':''}`} />
+                            <use xlinkHref={`${icon}#${'someThing' === '' ? 'icon-check' : ''}`} />
                         </svg>
                         Pin Left
                     </li>
                     <li style={toolgroup_li_ul_li}>
                         <svg style={svgStyle}>
-                            <use xlinkHref={`${icon}#${'someThing' === '' ?'icon-check':''}`} />
+                            <use xlinkHref={`${icon}#${'someThing' === '' ? 'icon-check' : ''}`} />
                         </svg>
                         Pin Right
                     </li>
                     <li style={toolgroup_li_ul_li}>
                         <svg style={svgStyle}>
-                            <use xlinkHref={`${icon}#${'someThing' === '' ?'icon-check':''}`} />
+                            <use xlinkHref={`${icon}#${'someThing' === '' ? 'icon-check' : ''}`} />
                         </svg>
                         No Pin
                     </li>
@@ -94,7 +94,8 @@ const Main = props => {
         <DropDownItem text='Autosize Column' />
         <DropDownItem text='Autosize All Columns' act={props.resetsizing} />
         <DropDownItem text='Group By Column' icon='icon-group_work' act={gropby} />
-        <DropDownItem text='Reset Column' icon='icon-refresh' />
+        <DropDownItem text='Reset Column' icon='icon-refresh'
+            act={() => props.reset(props.localSearchIds[props.index])} />
     </div>
 }
 export default Main;

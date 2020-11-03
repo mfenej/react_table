@@ -78,7 +78,7 @@ const SearchValue = props => {
     }
 
 
-    return <div style={{ width: '100%', height: '100%', backgroundColor: '#354f69' }}>
+    return <div style={{ width: '100%', height: '80%', backgroundColor: '#354f69' }}>
         
         <div className={classes.checkBoxCont} style={{ height: '11.2rem', overflowY: 'scroll' }}>
 
