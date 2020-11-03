@@ -52,7 +52,7 @@ const ReactTable = (props) => {
 				//Header: <div>{'code'} {test()}</div>,
 				Header: 'code',
 				accessor: 'colCode', // accessor is the "key" in the data
-				// sticky: 'left',
+				sticky: 'left',
 			},
 			{
 				id: 'label',
@@ -381,7 +381,7 @@ const ReactTable = (props) => {
 			const row = rows[index];
 			prepareRow(row);
 			return (
-				<tr {...row.getRowProps({ style})}
+				<tr {...row.getRowProps({ style })}
 				>
 					{row.cells.map((cell) => {
 						return (
@@ -419,7 +419,7 @@ const ReactTable = (props) => {
 		}
 	}, [props.searchVal]);
 
-	const dataFiltration = (data, id,col) => {
+	const dataFiltration = (data, id, col) => {
 		let unique = [];
 		let index = 0;
 
@@ -433,7 +433,7 @@ const ReactTable = (props) => {
 			})
 			// l te3li2 men hal function
 			data.map((el) => {
-					unique.push(el[columns[index].accessor]);
+				unique.push(el[columns[index].accessor]);
 			})
 			unique = [...new Set(unique)];
 		}
@@ -490,6 +490,7 @@ const ReactTable = (props) => {
 	}
 
 	const [a, seta] = useState(false);
+
 	return (
 
 		<div className={classes.Table}>
@@ -553,7 +554,7 @@ const ReactTable = (props) => {
 
 														>
 															<div
-																
+
 																{...provided.draggableProps}
 																{...provided.dragHandleProps}
 																ref={provided.innerRef}
@@ -572,14 +573,14 @@ const ReactTable = (props) => {
 																	</div>
 
 																	{
-																		
+
 																		(<DropDown
 
 																			ID={incrementId()}
 																			length={column.length}
 																			columns={columns[Id]}
 																			allColumns={columns}
-																			data={dataFiltration(data, Id,column.id)}
+																			data={dataFiltration(data, Id, column.id)}
 																			hiddenCol={props.columnsToHide}
 																			resetsizing={resetResizing}
 																			groupBy={toggleGroupBy}
@@ -630,6 +631,7 @@ const ReactTable = (props) => {
 						itemCount={rows.length}
 						itemSize={35}
 						width={totalColumnsWidth}
+						className={classes.List}
 					>
 						{RenderRow}
 					</FixedSizeList>

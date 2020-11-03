@@ -36,6 +36,7 @@
 	height: 3rem;
 	cursor: pointer;
 	position: relative;
+	background-color: white;
 }
 
 .table__menu__item {
@@ -222,7 +223,7 @@ table tbody tr:nth-child(even) {
 }
 
 .List {
-	overflow-x: hidden;
+	overflow-x: scroll;
 	overflow-y: scroll;
 }
 
@@ -241,11 +242,4 @@ table tbody tr:nth-child(even) {
 	display: flex;
 	/* background-color: #d9e5ed; */
 }
-.sticky {
-	position: sticky !important;
-	left: 0;
-	top: 0;
-}
-.sticky2 {
-overflow: unset !important;
-}
+
