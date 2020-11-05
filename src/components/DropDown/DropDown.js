@@ -181,7 +181,7 @@ const DropDown = (props) => {
 					zIndex: '2',
 					borderRadius: '0.4rem',
 					display: 'none',
-					//overflow: 'hidden',
+					overflow: 'hidden',
 					fontFamily: 'unset',
 				}}
 			>
