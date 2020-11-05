@@ -222,10 +222,10 @@ table tbody tr:nth-child(even) {
 	background-color: #e6ebee;
 }
 
-.List {
+/* .List {
 	overflow-x: scroll;
 	overflow-y: scroll;
-}
+} */
 
 .List::-webkit-scrollbar {
 	width: 0.7rem;
