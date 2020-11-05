@@ -44,15 +44,13 @@ const ReactTable = (props) => {
 
 		return [day, month, year].join('-');
 	};
-
 	let columns = React.useMemo(
 		() => [
 			{
 				id: 'code',
-				//Header: <div>{'code'} {test()}</div>,
 				Header: 'code',
 				accessor: 'colCode', // accessor is the "key" in the data
-				sticky: 'left',
+			//	sticky: 'left',
 			},
 			{
 				id: 'label',
@@ -161,7 +159,7 @@ const ReactTable = (props) => {
 		});
 	};
 
-	const searchColumn = (inputId, value, select) => {
+	const searchColumn = useCallback((inputId, value, select) => {
 		let input;
 		let id = inputId;
 		let selectVal = 'contains';
@@ -240,12 +238,12 @@ const ReactTable = (props) => {
 			setData(matchedData);
 		}
 
-	};
+	});
 	// testing
-	const dropDownHandler = (event) => {
+	const dropDownHandler = useCallback((event) => {
 		const val = event.target.value;
 		props.onCLientInit(val);
-	};
+	});
 
 
 
@@ -398,8 +396,6 @@ const ReactTable = (props) => {
 										lineHeight: '1.5rem',
 									}
 								})}
-
-							// className={classes.Test}
 							>
 								{cell.render('Cell')}
 							</td>
@@ -419,13 +415,11 @@ const ReactTable = (props) => {
 		}
 	}, [props.searchVal]);
 
-	const dataFiltration = (data, id, col) => {
+	const dataFiltration = useCallback((data, id, col) => {
 		let unique = [];
 		let index = 0;
 
 		if (id % 1 === 0) {
-			//console.log(headerGroups[0].headers[id])
-
 			columns.map((el, i) => {
 				if (el.id === col) {
 					index = i;
@@ -438,14 +432,14 @@ const ReactTable = (props) => {
 			unique = [...new Set(unique)];
 		}
 		return unique;
-	};
-	const incrementId = () => {
+	});
+	const incrementId = useCallback(() => {
 		if (Id === 5)
 			Id = -1;
 		Id = Id + 0.5;
 		return Id
-	}
-	const setSearchBoxSize = (code) => {
+	})
+	const setSearchBoxSize = useCallback((code) => {
 		let w = '150px';
 		headerGroups[0].headers.map((el, i) => {
 			if (el.id === code) {
@@ -458,8 +452,8 @@ const ReactTable = (props) => {
 			}
 		})
 		return { width: w };
-	}
-	const dragDropStyle = (isDragging) => {
+	})
+	const dragDropStyle = useCallback((isDragging) => {
 		if (isDragging) {
 			return ({
 				background: "white",
@@ -473,7 +467,7 @@ const ReactTable = (props) => {
 				boxShadow: ' 0 4px 0 0 rgba(3, 3, 3, 0.089)',
 			})
 		}
-	};
+	});
 	const clear = (id) => {
 		toggleGroupBy(id, false)
 		let columnsOrder = allColumns.map(o => o.id);

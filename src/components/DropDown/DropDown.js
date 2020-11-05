@@ -176,7 +176,7 @@ const DropDown = (props) => {
 					width: '14rem',
 					height: '16.5rem',
 					top: '0.3rem',
-					right: "-10.45rem",
+					right: "-11.45rem",
 					backgroundColor: '#3f5b76',
 					zIndex: '2',
 					borderRadius: '0.4rem',
