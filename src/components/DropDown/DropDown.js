@@ -90,12 +90,12 @@ const DropDown = (props) => {
 		BTNCheck = classes.table__menu__item__btn__closed;
 		if (type === 'inp') {
 			toReturn = contentDropSearchInput();
-			BTNNormal = classes.BTN__SearchDark;
-			BTNValue = classes.BTN__Search;
-		} else {
-			toReturn = contentDropSearchValue();
 			BTNNormal = classes.BTN__Search;
 			BTNValue = classes.BTN__SearchDark;
+		} else {
+			toReturn = contentDropSearchValue();
+			BTNNormal = classes.BTN__SearchDark;
+			BTNValue = classes.BTN__Search;
 		}
 		toRender =
 			<React.Fragment>
