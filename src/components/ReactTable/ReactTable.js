@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useBlockLayout, useSortBy, useTable, useResizeColumns, useGroupBy, useExpanded, useColumnOrder } from 'react-table';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { useSticky } from 'react-table-sticky';
 import { FixedSizeList } from 'react-window';
 import * as actions from '../../store/actions/index';
 import DropDown from '../DropDown/DropDown';
@@ -50,7 +49,6 @@ const ReactTable = (props) => {
 				id: 'code',
 				Header: 'code',
 				accessor: 'colCode', // accessor is the "key" in the data
-			//	sticky: 'left',
 			},
 			{
 				id: 'label',
@@ -285,7 +283,6 @@ const ReactTable = (props) => {
 		useResizeColumns,
 		useGroupBy,
 		useSortBy,
-		useSticky,
 		useExpanded,
 
 
