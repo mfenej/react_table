@@ -485,14 +485,14 @@ const ReactTable = (props) => {
 	return (
 
 		<div className={classes.Table}>
-			<select onChange={dropDownHandler}>
+			{/* <select onChange={dropDownHandler}>
 				<option>select an option</option>
 				<option value="1000">1,000</option>
 				<option value="10000">10,000</option>
 				<option value="50000">50,000</option>
 				<option value="1000000">1,000,000</option>4
 			</select>
-			<button onClick={clear}>dcd</button>
+			<button onClick={clear}>dcd</button> */}
 
 			<table {...getTableProps()} className={classes.table}>
 				<thead>

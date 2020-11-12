@@ -19,11 +19,11 @@
 .resizer {
 	display: inline-block;
 	background: #b3bcc4;
-	width: 3px;
-	height: 100%;
+	width: 2px;
+	height: 80%;
 	position: absolute;
 	right: 0rem;
-	top: 0;
+	top: 2.5px;
 	transform: translateX(50%);
 	z-index: 1;
 	touch-action: none;
@@ -33,7 +33,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 3rem;
+	height: 2rem;
 	cursor: pointer;
 	position: relative;
 	background-color: white;
@@ -42,8 +42,8 @@
 .table__menu__item {
 	text-transform: uppercase;
 	color: #39648f;
-	font-size: 1rem;
-	font-weight: 700;
+	font-size: 0.9rem;
+	font-weight: 800;
 	/* cursor: pointer; */
 }
 /*  */
@@ -113,27 +113,13 @@
 	fill: currentColor;
 }
 
-.table__menu__item__btn {
-	border: 0;
-	background-color: transparent;
-	height: min-content;
-	position: absolute;
-	right: -0.2rem;
-	top: 6px;
-	/* cursor: pointer; */
-}
 
-.table__menu__item__btnIcon {
-	transition: all 0.2s;
-	height: 1.5rem;
-	width: 1.5rem;
-	fill: #b3bcc4;
-}
 .table__search {
 	display: flex;
 	align-items: stretch;
 }
 .table__searchInput {
+	height: 2rem;
 	color: #fff;
 	background-color: #d9e5ed;
 	border: 0;
@@ -240,6 +226,6 @@ table tbody tr:nth-child(even) {
 .Search__row {
 	height: max-content;
 	display: flex;
-	/* background-color: #d9e5ed; */
+	background-color: #d9e5ed;
 }
 
