@@ -7,7 +7,7 @@ button:focus{
 	height: min-content;
 	position: absolute;
 	right: -0.2rem;
-	top: 1px;
+	top: 4px;
 	cursor: pointer;
 }
 

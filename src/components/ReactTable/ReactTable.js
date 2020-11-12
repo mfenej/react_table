@@ -99,7 +99,7 @@ const ReactTable = (props) => {
 	const defaultColumn = React.useMemo(
 		() => ({
 			minWidth: 100,
-			width: 150,
+			width: 160,
 			maxWidth: 300,
 		}),
 		[]
@@ -386,11 +386,10 @@ const ReactTable = (props) => {
 									style: {
 										position: 'relative',
 										cursor: 'pointer',
-										padding: '1rem 2.9rem',
 										textAlign: 'center',
 										fontSize: '1rem',
 										fontWeight: '600',
-										lineHeight: '1.5rem',
+										lineHeight: '3rem',
 									}
 								})}
 							>
@@ -620,7 +619,7 @@ const ReactTable = (props) => {
 					<FixedSizeList
 						height={420}
 						itemCount={rows.length}
-						itemSize={35}
+						itemSize={30}
 						width={totalColumnsWidth}
 						className={classes.List}
 					>
