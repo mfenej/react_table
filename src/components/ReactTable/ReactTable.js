@@ -8,6 +8,55 @@ import DropDown from '../DropDown/DropDown';
 import classes from './ReactTable.module.css';
 import icon from '../../assets/svg/all.svg';
 let allData;
+let columns =[
+		{
+			id: 'code',
+			Header: 'code',
+			accessor: 'colCode', // accessor is the "key" in the data
+		},
+		{
+			id: 'label',
+			Header: 'label',
+			accessor: 'colLable', //use the to put data in this colomn like in the data const
+		},
+		{
+			id: 'valid form',
+			Header: 'valid form',
+			accessor: 'colValidForm',
+			// Cell: (props) => {
+			// 	const d = props.value;
+			// 	const date = new Date(d);
+
+			// 	const formattedDate = formatDate(date);
+
+			// 	return formattedDate;
+			// },
+		},
+		{
+			id: 'valid to',
+			Header: 'valid to',
+			accessor: 'colValidTo',
+			// Cell: (props) => {
+			// 	const d = props.value;
+			// 	const date = new Date(d);
+
+			// 	// calling the fuction to format the date as "DD-MM-YYYY"
+			// 	const formattedDate = formatDate(date);
+
+			// 	return formattedDate;
+			// },
+		},
+		{
+			id: 'airport iata',
+			Header: 'airport iata',
+			accessor: 'colAirport',
+		},
+		{
+			id: 'remarks',
+			Header: 'remarks',
+			accessor: 'colRemarks',
+		},
+	];
 const ReactTable = (props) => {
 	let Id = -1;
 	const currentColOrder = React.useRef();
@@ -43,58 +92,7 @@ const ReactTable = (props) => {
 
 		return [day, month, year].join('-');
 	};
-	let columns = React.useMemo(
-		() => [
-			{
-				id: 'code',
-				Header: 'code',
-				accessor: 'colCode', // accessor is the "key" in the data
-			},
-			{
-				id: 'label',
-				Header: 'label',
-				accessor: 'colLable', //use the to put data in this colomn like in the data const
-			},
-			{
-				id: 'valid form',
-				Header: 'valid form',
-				accessor: 'colValidForm',
-				Cell: (props) => {
-					const d = props.value;
-					const date = new Date(d);
 
-					const formattedDate = formatDate(date);
-
-					return formattedDate;
-				},
-			},
-			{
-				id: 'valid to',
-				Header: 'valid to',
-				accessor: 'colValidTo',
-				Cell: (props) => {
-					const d = props.value;
-					const date = new Date(d);
-
-					// calling the fuction to format the date as "DD-MM-YYYY"
-					const formattedDate = formatDate(date);
-
-					return formattedDate;
-				},
-			},
-			{
-				id: 'airport iata',
-				Header: 'airport iata',
-				accessor: 'colAirport',
-			},
-			{
-				id: 'remarks',
-				Header: 'remarks',
-				accessor: 'colRemarks',
-			},
-		],
-		[]
-	);
 
 	const defaultColumn = React.useMemo(
 		() => ({
