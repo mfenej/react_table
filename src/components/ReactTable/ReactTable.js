@@ -183,7 +183,7 @@ const ReactTable = (props) => {
 				case 'contains':
 					allData.map((el) => {
 						arrOfInputs.map((inp) => {
-							if (inp !== '' && el.[access].toUpperCase().includes(inp.toUpperCase()))
+							if (inp !== '' && el[access].toUpperCase().includes(inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
@@ -191,7 +191,7 @@ const ReactTable = (props) => {
 				case 'notContains':
 					allData.map((el) => {
 						arrOfInputs.map((inp) => {
-							if (inp !== '' && !el.[access].toUpperCase().includes(inp.toUpperCase()))
+							if (inp !== '' && !el[access].toUpperCase().includes(inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
@@ -199,7 +199,7 @@ const ReactTable = (props) => {
 				case 'startWith':
 					allData.map((el) => {
 						arrOfInputs.map((inp) => {
-							if (inp !== '' && el.[access].toUpperCase().startsWith(inp.toUpperCase()))
+							if (inp !== '' && el[access].toUpperCase().startsWith(inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
@@ -207,7 +207,7 @@ const ReactTable = (props) => {
 				case 'endsWith':
 					allData.map((el) => {
 						arrOfInputs.map((inp) => {
-							if (inp !== '' && el.[access].toUpperCase().endsWith(inp.toUpperCase()))
+							if (inp !== '' && el[access].toUpperCase().endsWith(inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
@@ -215,7 +215,7 @@ const ReactTable = (props) => {
 				case 'notEqual':
 					allData.map((el) => {
 						arrOfInputs.map((inp) => {
-							if (inp !== '' && el.[access].toUpperCase() !== (inp.toUpperCase()))
+							if (inp !== '' && el[access].toUpperCase() !== (inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
@@ -223,7 +223,7 @@ const ReactTable = (props) => {
 				case 'equal':
 					allData.map((el) => {
 						arrOfInputs.map((inp) => {
-							if (inp !== '' && el.[access].toUpperCase() === (inp.toUpperCase()))
+							if (inp !== '' && el[access].toUpperCase() === (inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
