@@ -18,9 +18,7 @@ button:focus{
 .table__menu__item__btn__open {
 	border: 0;
 	background-color: #354f69;
-	height: max-content;
 	height: 2.5rem;
-
 	cursor: pointer;
 }
 

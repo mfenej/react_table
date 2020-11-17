@@ -45,7 +45,7 @@ const DropDown = (props) => {
 		/>
 	};
 	const menuBTNS = () => (
-		<div style={{ display: 'flex' }}>
+		<div style={{ display: 'flex',overflow:'hidden',borderRadius:'5px' }}>
 			<button
 				onClick={() => {
 					contentDropMain();
@@ -181,7 +181,7 @@ const DropDown = (props) => {
 					zIndex: '2',
 					borderRadius: '0.4rem',
 					display: 'none',
-					overflow: 'hidden',
+					// overflow: 'hidden',
 					fontFamily: 'unset',
 				}}
 			>
