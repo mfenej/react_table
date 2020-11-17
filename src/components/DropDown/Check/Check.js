@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CheckBox from '../CheckBox/CheckBox';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
@@ -8,7 +8,7 @@ const Check = props => {
     let boolChecked;
     const makeArrayToDisplay = () => {
         boolChecked = [];
-        props.allColumns.map((el) => {
+        props.allColumns.forEach ((el) => {
             boolChecked.push({id:el.id, Header: el.Header, accessor: el.accessor, checked: true })
         })
     }
@@ -19,18 +19,18 @@ const Check = props => {
     let arrToReturn;
     if (props.hiddenCol.length === 0) {
         arrToReturn = [];
-        props.allColumns.map((el) => {
+        props.allColumns.forEach ((el) => {
             arrToReturn.push({ id: el.id, Header: el.Header, accessor: el.accessor, val: false })
         })
         arrToReturn.push(true);
     } else {
         arrToReturn = props.hiddenCol
-        boolChecked.map((el, i) => {
+        boolChecked.forEach ((el, i) => {
             el.checked = !arrToReturn[i].val;
         })
     }
     const editColumns = (id, stat) => {
-        props.allColumns.map((el, i) => {
+        props.allColumns.forEach ((el, i) => {
             if (el.id === id) {
                 if (stat) {
                     arrToReturn[i].val = false;

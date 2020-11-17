@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import classes from './SearchValue.module.css';
 import CheckBox from '../CheckBox/CheckBox'
 import { connect } from 'react-redux';
@@ -19,32 +19,32 @@ const SearchValue = props => {
     let [allChecked, setALLChecked] = useState(true);
     useEffect(() => {
         arrBool = [];
-        props.data.map(() => {
+        props.data.forEach(() => {
             arrBool.push(true);
         })
     }, [props.data])
     //init arrays
     if (arrBool.length === 0) {
-        props.data.map(() => {
+        props.data.forEach(() => {
             arrBool.push(true);
         })
     }
 
 
 
-    const checkBoolAllFalse = useCallback(() => {
+    const checkBoolAllFalse = () => {
         let bool = true;
-        arrBool.map(el => {
+        arrBool.forEach(el => {
             if (el === true)
                 bool = false;
         })
         return bool
-    })
+    }
 
     useEffect(() => {
         if (!checkBoolAllFalse() && !allChecked) {
             let searchWords = '';
-            arrBool.map((el, i) => {
+            arrBool.forEach((el, i) => {
                 if (el) {
                     searchWords += props.data[i] + " ";
                 }
@@ -53,22 +53,22 @@ const SearchValue = props => {
         } else {
             props.onSendSearchData('', props.id)
         }
-    }, [allChecked, props.id])
+    }, [allChecked, props.id,props])
 
-    const selectAll = useCallback(() => {
+    const selectAll = () => {
         setALLChecked(!allChecked);
 
         if (!allChecked) {
-            arrBool.map((el, i) => {
+            arrBool.forEach((el, i) => {
                 arrBool[i] = true;
             })
         } else {
-            arrBool.map((el, i) => {
+            arrBool.forEach((el, i) => {
                 arrBool[i] = false;
             })
         }
-    });
-    const singleSelect = useCallback((id, check) => {
+    };
+    const singleSelect = (id, check) => {
         let i = props.data.indexOf(id);
         arrBool[i] = check;
 
@@ -82,7 +82,7 @@ const SearchValue = props => {
                 setALLChecked(true);
             }, 2);
         }
-    });
+    };
     arrData = props.data.slice(0, itemCount);
     const fetchMoreData = () => {
         if (props.data.length - itemCount >= 20)

@@ -78,20 +78,20 @@ const ReactTable = (props) => {
 		setData(allData)
 	}, [props.clients, props.columnsToHide])
 
-	const formatDate = (date) => {
-		let day = date.getDate();
-		let month = date.getMonth() + 1;
-		const year = date.getFullYear();
+	// const formatDate = (date) => {
+	// 	let day = date.getDate();
+	// 	let month = date.getMonth() + 1;
+	// 	const year = date.getFullYear();
 
-		if (month.toString().length < 2) {
-			month = '0' + month;
-		}
-		if (day.toString().length < 2) {
-			day = '0' + day;
-		}
+	// 	if (month.toString().length < 2) {
+	// 		month = '0' + month;
+	// 	}
+	// 	if (day.toString().length < 2) {
+	// 		day = '0' + day;
+	// 	}
 
-		return [day, month, year].join('-');
-	};
+	// 	return [day, month, year].join('-');
+	// };
 
 
 	const defaultColumn = React.useMemo(
@@ -109,7 +109,7 @@ const ReactTable = (props) => {
 	const displayData = useCallback(
 		(el) => {
 			let ojectFromArray;
-			data.map((ell) => {
+			data.forEach((ell) => {
 				if (ell.colCode === el.target.parentNode.children[0].innerHTML) {
 					ojectFromArray = ell;
 				}
@@ -155,7 +155,7 @@ const ReactTable = (props) => {
 		});
 	};
 
-	const searchColumn = useCallback((inputId, value, select) => {
+	const searchColumn = (inputId, value, select) => {
 		let input;
 		let id = inputId;
 		let selectVal = 'contains';
@@ -173,7 +173,7 @@ const ReactTable = (props) => {
 		}
 		else {
 			let access = null;
-			columns.map((el) => {
+			columns.forEach((el) => {
 				if (el.id === id)
 					access = el.accessor
 			})
@@ -181,48 +181,48 @@ const ReactTable = (props) => {
 			let matchedData = [];
 			switch (selectVal) {
 				case 'contains':
-					allData.map((el) => {
-						arrOfInputs.map((inp) => {
+					allData.forEach((el) => {
+						arrOfInputs.forEach((inp) => {
 							if (inp !== '' && el[access].toUpperCase().includes(inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
 					break;
 				case 'notContains':
-					allData.map((el) => {
-						arrOfInputs.map((inp) => {
+					allData.forEach((el) => {
+						arrOfInputs.forEach((inp) => {
 							if (inp !== '' && !el[access].toUpperCase().includes(inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
 					break;
 				case 'startWith':
-					allData.map((el) => {
-						arrOfInputs.map((inp) => {
+					allData.forEach((el) => {
+						arrOfInputs.forEach((inp) => {
 							if (inp !== '' && el[access].toUpperCase().startsWith(inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
 					break;
 				case 'endsWith':
-					allData.map((el) => {
-						arrOfInputs.map((inp) => {
+					allData.forEach((el) => {
+						arrOfInputs.forEach((inp) => {
 							if (inp !== '' && el[access].toUpperCase().endsWith(inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
 					break;
 				case 'notEqual':
-					allData.map((el) => {
-						arrOfInputs.map((inp) => {
+					allData.forEach((el) => {
+						arrOfInputs.forEach((inp) => {
 							if (inp !== '' && el[access].toUpperCase() !== (inp.toUpperCase()))
 								matchedData.push(el);
 						})
 					})
 					break;
 				case 'equal':
-					allData.map((el) => {
-						arrOfInputs.map((inp) => {
+					allData.forEach((el) => {
+						arrOfInputs.forEach((inp) => {
 							if (inp !== '' && el[access].toUpperCase() === (inp.toUpperCase()))
 								matchedData.push(el);
 						})
@@ -234,14 +234,7 @@ const ReactTable = (props) => {
 			setData(matchedData);
 		}
 
-	});
-	// testing
-	const dropDownHandler = useCallback((event) => {
-		const val = event.target.value;
-		props.onCLientInit(val);
-	});
-
-
+	};
 
 	function useControlledState(state, { instance }) {
 		return React.useMemo(() => {
@@ -351,12 +344,12 @@ const ReactTable = (props) => {
 		});
 
 	let localSearchIds = [];
-	allColumns.map((el) => {
+	allColumns.forEach((el) => {
 		localSearchIds.push(el.id)
 	})
 	useEffect(() => {
 		if (props.columnsToHide !== null) {
-			props.columnsToHide.map((el) => {
+			props.columnsToHide.forEach((el) => {
 				toggleHideColumn(el.id, el.val);
 				let input = document.getElementById(el.id + 'search');
 				if (input !== null)
@@ -367,7 +360,7 @@ const ReactTable = (props) => {
 					}
 			});
 		}
-	}, [props.columnsToHide[props.columnsToHide.length - 1]]);
+	}, [props.columnsToHide[props.columnsToHide.length - 1]]);// eslint-disable-line react-hooks/exhaustive-deps
 
 	const RenderRow = React.useCallback(
 		({ index, style }) => {
@@ -407,35 +400,35 @@ const ReactTable = (props) => {
 			field.value = props.searchVal;
 			searchColumn(localSearchIds[props.searchID]);
 		}
-	}, [props.searchVal]);
+	}, [props.searchVal]);// eslint-disable-line react-hooks/exhaustive-deps
 
-	const dataFiltration = useCallback((data, id, col) => {
+	const dataFiltration = (data, id, col) => {
 		let unique = [];
 		let index = 0;
 
 		if (id % 1 === 0) {
-			columns.map((el, i) => {
+			columns.forEach((el, i) => {
 				if (el.id === col) {
 					index = i;
 				}
 			})
 			// l te3li2 men hal function
-			data.map((el) => {
+			data.forEach((el) => {
 				unique.push(el[columns[index].accessor]);
 			})
 			unique = [...new Set(unique)];
 		}
 		return unique;
-	});
-	const incrementId = useCallback(() => {
+	};
+	const incrementId = () => {
 		if (Id === 5)
 			Id = -1;
 		Id = Id + 0.5;
 		return Id
-	})
-	const setSearchBoxSize = useCallback((code) => {
+	};
+	const setSearchBoxSize =(code) => {
 		let w = '150px';
-		headerGroups[0].headers.map((el, i) => {
+		headerGroups[0].headers.forEach((el, i) => {
 			if (el.id === code) {
 				//geting the width of the header
 				w = headerGroups[0].headers[i].getHeaderProps().style.width;
@@ -446,8 +439,8 @@ const ReactTable = (props) => {
 			}
 		})
 		return { width: w };
-	})
-	const dragDropStyle = useCallback((isDragging) => {
+	}
+	const dragDropStyle = (isDragging) => {
 		if (isDragging) {
 			return ({
 				background: "white",
@@ -461,7 +454,7 @@ const ReactTable = (props) => {
 				boxShadow: ' 0 4px 0 0 rgba(3, 3, 3, 0.089)',
 			})
 		}
-	});
+	};
 	const clear = (id) => {
 		toggleGroupBy(id, false)
 		let columnsOrder = allColumns.map(o => o.id);
@@ -469,7 +462,7 @@ const ReactTable = (props) => {
 		let columnToReorder = columnsOrder[currentIndex];
 		columnsOrder.splice(currentIndex, 1);
 		let originalIndex;
-		columns.map((el, i) => {
+		columns.forEach((el, i) => {
 			if (el.id === id)
 				originalIndex = i;
 		})
@@ -497,6 +490,7 @@ const ReactTable = (props) => {
 
 					{headerGroups.map((headerGroup) => (
 						<DragDropContext
+							key={0}
 							onDragStart={() => {
 
 								currentColOrder.current = allColumns.map(o => o.id);

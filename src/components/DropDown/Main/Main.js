@@ -61,7 +61,7 @@ const Main = props => {
                     <use xlinkHref={`${icon}#icon-pin-outline`} />
                 </svg>
 
-                <a style={toolgroup_li_a}>Pin Column</a>
+                <p style={toolgroup_li_a}>Pin Column</p>
                 <svg style={svgStyle}>
                     <use xlinkHref={`${icon}#icon-forward`} />
                 </svg>

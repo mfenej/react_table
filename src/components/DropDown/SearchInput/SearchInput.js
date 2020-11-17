@@ -12,7 +12,7 @@ const SearchInput = props => {
 
         props.searchColumn(props.ID, searchValue, selectValue)
 
-    }, [searchValue, selectValue]);
+    }, [searchValue, selectValue, props]);
     
     return <div style={{ width: '100%', height: '80%', backgroundColor: '#354f69' }}>
 

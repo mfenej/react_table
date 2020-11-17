@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import icon from '../../assets/svg/all.svg';
 import classes from './DropDown.module.css';
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
 
@@ -96,12 +96,12 @@ let ReduxForm = (props) => {
 	const [classSwitcher, setClassSwitcher] = useState('');
 	const [rOnly, setROnly] = useState(true);
 
-	const setEditableModeOn = (type) => {
+	const setEditableModeOn =(type) => {
 		setClassSwitcher('add__');
 		setROnly(false);
 		props.initialValues.type = type;
-	}
-	const setEditableModeOff = () => {
+	};
+	const setEditableModeOff =() => {
 
 		if (props.initialValues.type === 'edit') {
 			setClassSwitcher('');
@@ -120,7 +120,7 @@ let ReduxForm = (props) => {
 		} else {
 			setEditableModeOff('');
 		}
-	}, [props.initialValues]);
+	}, [props.initialValues]);// eslint-disable-line react-hooks/exhaustive-deps
 
 	const { handleSubmit } = props;
 	return (
