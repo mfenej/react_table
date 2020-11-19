@@ -97,7 +97,7 @@ const ReactTable = (props) => {
 	const defaultColumn = React.useMemo(
 		() => ({
 			minWidth: 100,
-			width: 160,
+			width: 161,
 			maxWidth: 300,
 		}),
 		[]
@@ -375,12 +375,15 @@ const ReactTable = (props) => {
 								onClick={displayData}
 								{...cell.getCellProps({
 									style: {
+										fontFamily: 'sans-serif',
 										position: 'relative',
 										cursor: 'pointer',
 										textAlign: 'center',
-										fontSize: '1rem',
-										fontWeight: '600',
+										fontSize: '1.2rem',
+										fontWeight: '500',
 										lineHeight: '3rem',
+										borderRight: '1px solid #dee1e2',
+										color:'#5e6971',
 									}
 								})}
 							>
