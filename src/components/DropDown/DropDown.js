@@ -41,6 +41,7 @@ const DropDown = (props) => {
 			groupBy={props.groupBy}
 			localSearchIds={props.localSearchIds}
 			index={id}
+			otherProps={props}
 			reset={props.reset}
 		/>
 	};
