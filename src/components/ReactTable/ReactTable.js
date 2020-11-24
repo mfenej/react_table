@@ -361,7 +361,43 @@ const ReactTable = (props) => {
 			});
 		}
 	}, [props.columnsToHide[props.columnsToHide.length - 1]]);// eslint-disable-line react-hooks/exhaustive-deps
-
+	function rowRenderer({
+		key, // Unique key within array of rows
+		index, // Index of row within collection
+		isScrolling, // The List is currently being scrolled
+		isVisible, // This row is visible within the List (eg it is not an overscanned row)
+		style, // Style object to be applied to row (to position it)
+	}) {
+		return (
+			<div key={key} style={style}>
+				<tr {...row.getRowProps({ style })}
+				>
+					{row.cells.map((cell) => {
+						return (
+							<td
+								onClick={displayData}
+								{...cell.getCellProps({
+									style: {
+										fontFamily: 'sans-serif',
+										position: 'relative',
+										cursor: 'pointer',
+										textAlign: 'center',
+										fontSize: '1.2rem',
+										fontWeight: '500',
+										lineHeight: '3rem',
+										borderRight: '1px solid #dee1e2',
+										color: '#5e6971',
+									}
+								})}
+							>
+								{cell.render('Cell')}
+							</td>
+						);
+					})}
+				</tr>
+			</div>
+		);
+	}
 	const RenderRow = React.useCallback(
 		({ index, style }) => {
 			const row = rows[index];
