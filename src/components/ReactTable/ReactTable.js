@@ -398,7 +398,8 @@ const ReactTable = (props) => {
 										lineHeight: '3rem',
 										borderRight: '1px solid #dee1e2',
 										color: '#5e6971',
-									}
+									},
+                                    className: cell.column.className
 								})}
 							>
 								{cell.render('Cell')}
