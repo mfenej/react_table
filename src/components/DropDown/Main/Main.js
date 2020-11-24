@@ -51,9 +51,22 @@ const Main = props => {
     }
 
     const autoSizeColumn = (props) => {
-
+        const ColFilter = props.otherProps && `${props.otherProps.columns.id.replace(/ /g,"_")}__input`;
         const colId = props.otherProps && props.otherProps.columns.id.replace(/ /g,"_");
+        const cellId = props.otherProps && `${props.otherProps.columns.id.replace(/ /g,"_")}__cell`;
         let headerElement = document.querySelector(`[data-col-id="${colId}"]`);
+
+        if(ColFilter && ColFilter !== null){
+            let input = document.querySelector(`[data-col-id="${ColFilter}"]`);
+            input.style.width = `${props.otherProps.width + 100}px`
+        }
+
+        if(cellId && cellId !== null){
+            let cells = document.querySelectorAll(`.${cellId}`);
+            cells.forEach((cell) => {
+                cell.style.width = `${props.otherProps.width + 100}px`
+            });
+        }
 
         if(headerElement && headerElement !== null){
             headerElement.style.width = `${props.otherProps.width + 100}px`
