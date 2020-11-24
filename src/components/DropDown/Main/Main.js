@@ -51,6 +51,7 @@ const Main = props => {
     }
 
     const autoSizeColumn = (props) => {
+        console.log('clicked')
         const ColFilter = props.otherProps && `${props.otherProps.columns.id.replace(/ /g,"_")}__input`;
         const colId = props.otherProps && props.otherProps.columns.id.replace(/ /g,"_");
         const cellId = props.otherProps && `${props.otherProps.columns.id.replace(/ /g,"_")}__cell`;
@@ -60,7 +61,7 @@ const Main = props => {
             let input = document.querySelector(`[data-col-id="${ColFilter}"]`);
             input.style.width = `${props.otherProps.width + 100}px`
         }
-
+debugger
         if(cellId && cellId !== null){
             let cells = document.querySelectorAll(`.${cellId}`);
             cells.forEach((cell) => {

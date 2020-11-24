@@ -40,7 +40,7 @@ let columns =[
 			Header: 'valid to',
             className: "valid_to__cell", // className is same as header
 			accessor: 'colValidTo',
-            //sortable: false,
+            sortable: false,
             disableSortBy: true,
 			// Cell: (props) => {
 			// 	const d = props.value;
@@ -104,9 +104,9 @@ const ReactTable = (props) => {
 
 	const defaultColumn = React.useMemo(
 		() => ({
-			minWidth: 100,
-			width: 161,
-			maxWidth: 300,
+			// minWidth: 100,
+			// width: 161,
+			// maxWidth: 300,
 		}),
 		[]
 	);
