@@ -7,6 +7,7 @@ import * as actions from '../../store/actions/index';
 import DropDown from '../DropDown/DropDown';
 import classes from './ReactTable.module.css';
 import icon from '../../assets/svg/all.svg';
+import { List } from 'react-virtualized';
 let allData;
 let columns =[
 		{
@@ -368,9 +369,10 @@ const ReactTable = (props) => {
 		isVisible, // This row is visible within the List (eg it is not an overscanned row)
 		style, // Style object to be applied to row (to position it)
 	}) {
+		const row = rows[index];
+		prepareRow(row);
 		return (
-			<div key={key} style={style}>
-				<tr {...row.getRowProps({ style })}
+				<tr key={key}{...row.getRowProps({ style })}
 				>
 					{row.cells.map((cell) => {
 						return (
@@ -395,7 +397,7 @@ const ReactTable = (props) => {
 						);
 					})}
 				</tr>
-			</div>
+		
 		);
 	}
 	const RenderRow = React.useCallback(
@@ -650,7 +652,7 @@ const ReactTable = (props) => {
 							</th>
 						))}
 					</tr>
-					<FixedSizeList
+					{/* <FixedSizeList
 						height={420}
 						itemCount={rows.length}
 						itemSize={30}
@@ -658,7 +660,15 @@ const ReactTable = (props) => {
 						className={classes.List}
 					>
 						{RenderRow}
-					</FixedSizeList>
+					</FixedSizeList> */}
+					<List
+						width={totalColumnsWidth}
+						height={420}
+						rowCount={rows.length}
+						rowHeight={30}
+						rowRenderer={rowRenderer}
+						className={classes.List}
+					/>,
 				</tbody>
 			</table>
 		</div>
