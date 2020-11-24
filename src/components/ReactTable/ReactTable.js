@@ -12,16 +12,19 @@ let columns =[
 		{
 			id: 'code',
 			Header: 'code',
+            className: "code__cell", // className is same as header
 			accessor: 'colCode', // accessor is the "key" in the data
 		},
 		{
 			id: 'label',
 			Header: 'label',
+            className: "label__cell", // className is same as header
 			accessor: 'colLable', //use the to put data in this colomn like in the data const
 		},
 		{
 			id: 'valid form',
 			Header: 'valid form',
+            className: "valid_form__cell", // className is same as header
 			accessor: 'colValidForm',
 			// Cell: (props) => {
 			// 	const d = props.value;
@@ -35,7 +38,10 @@ let columns =[
 		{
 			id: 'valid to',
 			Header: 'valid to',
+            className: "valid_to__cell", // className is same as header
 			accessor: 'colValidTo',
+            //sortable: false,
+            disableSortBy: true,
 			// Cell: (props) => {
 			// 	const d = props.value;
 			// 	const date = new Date(d);
@@ -49,11 +55,13 @@ let columns =[
 		{
 			id: 'airport iata',
 			Header: 'airport iata',
+            className: "airport_iata__cell", // className is same as header
 			accessor: 'colAirport',
 		},
 		{
 			id: 'remarks',
 			Header: 'remarks',
+            className: "remarks__cell", // className is same as header
 			accessor: 'colRemarks',
 		},
 	];
@@ -267,6 +275,7 @@ const ReactTable = (props) => {
 		{
 			columns,
 			data,
+            //disableSortBy: true,
 			defaultColumn,
 		},
 		useColumnOrder,
@@ -384,7 +393,8 @@ const ReactTable = (props) => {
 										lineHeight: '3rem',
 										borderRight: '1px solid #dee1e2',
 										color:'#5e6971',
-									}
+									},
+                                    className: cell.column.className
 								})}
 							>
 								{cell.render('Cell')}
@@ -603,6 +613,7 @@ const ReactTable = (props) => {
 						{localSearchIds.map((element) => (
 							<th key={element}>
 								<input
+                                    data-col-id={`${element.replace(/ /g,"_")}__input`}
 									type="text"
 									id={element + 'search'}
 									className={classes.table__searchInput}
