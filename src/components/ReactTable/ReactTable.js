@@ -8,64 +8,66 @@ import DropDown from '../DropDown/DropDown';
 import classes from './ReactTable.module.css';
 import icon from '../../assets/svg/all.svg';
 import { List } from 'react-virtualized';
+import { useSticky } from "react-table-sticky";
 let allData;
-let columns =[
-		{
-			id: 'code',
-			Header: 'code',
-            className: "code__cell", // className is same as header
-			accessor: 'colCode', // accessor is the "key" in the data
-		},
-		{
-			id: 'label',
-			Header: 'label',
-            className: "label__cell", // className is same as header
-			accessor: 'colLable', //use the to put data in this colomn like in the data const
-		},
-		{
-			id: 'valid form',
-			Header: 'valid form',
-            className: "valid_form__cell", // className is same as header
-			accessor: 'colValidForm',
-			// Cell: (props) => {
-			// 	const d = props.value;
-			// 	const date = new Date(d);
+let columns = [
+	{
+		id: 'code',
+		Header: 'code',
+		className: "code__cell", // className is same as header
+		accessor: 'colCode', // accessor is the "key" in the data
+		sticky: 'left',
+	},
+	{
+		id: 'label',
+		Header: 'label',
+		className: "label__cell", // className is same as header
+		accessor: 'colLable', //use the to put data in this colomn like in the data const
+	},
+	{
+		id: 'valid form',
+		Header: 'valid form',
+		className: "valid_form__cell", // className is same as header
+		accessor: 'colValidForm',
+		// Cell: (props) => {
+		// 	const d = props.value;
+		// 	const date = new Date(d);
 
-			// 	const formattedDate = formatDate(date);
+		// 	const formattedDate = formatDate(date);
 
-			// 	return formattedDate;
-			// },
-		},
-		{
-			id: 'valid to',
-			Header: 'valid to',
-            className: "valid_to__cell", // className is same as header
-			accessor: 'colValidTo',
-            sortable: false,
-            disableSortBy: true,
-			// Cell: (props) => {
-			// 	const d = props.value;
-			// 	const date = new Date(d);
+		// 	return formattedDate;
+		// },
+	},
+	{
+		id: 'valid to',
+		Header: 'valid to',
+		className: "valid_to__cell", // className is same as header
+		accessor: 'colValidTo',
+		sortable: false,
+		disableSortBy: true,
+		// Cell: (props) => {
+		// 	const d = props.value;
+		// 	const date = new Date(d);
 
-			// 	// calling the fuction to format the date as "DD-MM-YYYY"
-			// 	const formattedDate = formatDate(date);
+		// 	// calling the fuction to format the date as "DD-MM-YYYY"
+		// 	const formattedDate = formatDate(date);
 
-			// 	return formattedDate;
-			// },
-		},
-		{
-			id: 'airport iata',
-			Header: 'airport iata',
-            className: "airport_iata__cell", // className is same as header
-			accessor: 'colAirport',
-		},
-		{
-			id: 'remarks',
-			Header: 'remarks',
-            className: "remarks__cell", // className is same as header
-			accessor: 'colRemarks',
-		},
-	];
+		// 	return formattedDate;
+		// },
+	},
+	{
+		id: 'airport iata',
+		Header: 'airport iata',
+		className: "airport_iata__cell", // className is same as header
+		accessor: 'colAirport',
+	},
+	{
+		id: 'remarks',
+		Header: 'remarks',
+		className: "remarks__cell", // className is same as header
+		accessor: 'colRemarks',
+	},
+];
 const ReactTable = (props) => {
 	let Id = -1;
 	const currentColOrder = React.useRef();
@@ -276,7 +278,7 @@ const ReactTable = (props) => {
 		{
 			columns,
 			data,
-            //disableSortBy: true,
+			//disableSortBy: true,
 			defaultColumn,
 		},
 		useColumnOrder,
@@ -284,6 +286,7 @@ const ReactTable = (props) => {
 		useResizeColumns,
 		useGroupBy,
 		useSortBy,
+		useSticky,
 		useExpanded,
 
 
@@ -381,33 +384,33 @@ const ReactTable = (props) => {
 		const row = rows[index];
 		prepareRow(row);
 		return (
-				<tr key={key}{...row.getRowProps({ style })}
-				>
-					{row.cells.map((cell) => {
-						return (
-							<td
-								onClick={displayData}
-								{...cell.getCellProps({
-									style: {
-										fontFamily: 'sans-serif',
-										position: 'relative',
-										cursor: 'pointer',
-										textAlign: 'center',
-										fontSize: '1.2rem',
-										fontWeight: '500',
-										lineHeight: '3rem',
-										borderRight: '1px solid #dee1e2',
-										color: '#5e6971',
-									},
-                                    className: cell.column.className
-								})}
-							>
-								{cell.render('Cell')}
-							</td>
-						);
-					})}
-				</tr>
-		
+			<tr key={key}{...row.getRowProps({ style })}
+			>
+				{row.cells.map((cell) => {
+					return (
+						<td
+							onClick={displayData}
+							{...cell.getCellProps({
+								style: {
+									fontFamily: 'sans-serif',
+									position: 'relative',
+									cursor: 'pointer',
+									textAlign: 'center',
+									fontSize: '1.2rem',
+									fontWeight: '500',
+									lineHeight: '3rem',
+									borderRight: '1px solid #dee1e2',
+									color: '#5e6971',
+								},
+								className: cell.column.className
+							})}
+						>
+							{cell.render('Cell')}
+						</td>
+					);
+				})}
+			</tr>
+
 		);
 	}
 	const RenderRow = React.useCallback(
@@ -431,9 +434,9 @@ const ReactTable = (props) => {
 										fontWeight: '500',
 										lineHeight: '3rem',
 										borderRight: '1px solid #dee1e2',
-										color:'#5e6971',
+										color: '#5e6971',
 									},
-                                    className: cell.column.className
+									className: cell.column.className
 								})}
 							>
 								{cell.render('Cell')}
@@ -478,7 +481,7 @@ const ReactTable = (props) => {
 		Id = Id + 0.5;
 		return Id
 	};
-	const setSearchBoxSize =(code) => {
+	const setSearchBoxSize = (code) => {
 		let w = '150px';
 		headerGroups[0].headers.forEach((el, i) => {
 			if (el.id === code) {
@@ -523,7 +526,7 @@ const ReactTable = (props) => {
 	}
 
 	const [a, seta] = useState(false);
-    const headerRef = React.useRef(null);
+	const headerRef = React.useRef(null);
 
 	return (
 
@@ -581,7 +584,7 @@ const ReactTable = (props) => {
 											>
 
 												{(provided, snapshot) => {
-                                                    const colId = column.id.replace(/ /g,"_");
+													const colId = column.id.replace(/ /g, "_");
 													return (
 
 														<th
@@ -598,7 +601,7 @@ const ReactTable = (props) => {
 																<div className={classes.table__header}
 																>
 																	<div
-																			ref={headerRef}
+																		ref={headerRef}
 																		style={{
 																			width: 'max-content',
 																			...dragDropStyle(
@@ -612,7 +615,7 @@ const ReactTable = (props) => {
 																	{
 
 																		(<DropDown
-                                                                            width={headerRef && headerRef.current ? headerRef.current.clientWidth : 120}
+																			width={headerRef && headerRef.current ? headerRef.current.clientWidth : 120}
 																			ID={incrementId()}
 																			length={column.length}
 																			columns={columns[Id]}
@@ -652,7 +655,7 @@ const ReactTable = (props) => {
 						{localSearchIds.map((element) => (
 							<th key={element}>
 								<input
-                                    data-col-id={`${element.replace(/ /g,"_")}__input`}
+									data-col-id={`${element.replace(/ /g, "_")}__input`}
 									type="text"
 									id={element + 'search'}
 									className={classes.table__searchInput}
