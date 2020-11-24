@@ -50,6 +50,17 @@ const Main = props => {
         margin: '0 0.5rem'
     }
 
+    const autoSizeColumn = (props) => {
+
+        const colId = props.otherProps && props.otherProps.columns.id.replace(/ /g,"_");
+        let headerElement = document.querySelector(`[data-col-id="${colId}"]`);
+
+        if(headerElement && headerElement !== null){
+            headerElement.style.width = `${props.otherProps.width + 100}px`
+        }
+
+    }
+
     return <div style={{ height: '100%', backgroundColor: '#354f69' }}>
         <ul style={toolgroup}
             onMouseEnter={() => { setIsShow('block') }}
@@ -91,7 +102,7 @@ const Main = props => {
                 </ul>
             </li>
         </ul>
-        <DropDownItem text='Autosize Column' />
+        <DropDownItem text='Autosize Column' act={() => autoSizeColumn(props)} />
         <DropDownItem text='Autosize All Columns' act={props.resetsizing} />
         <DropDownItem text='Group By Column' icon='icon-group_work' act={gropby} />
         <DropDownItem text='Reset Column' icon='icon-refresh'

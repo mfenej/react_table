@@ -510,6 +510,7 @@ const ReactTable = (props) => {
 	}
 
 	const [a, seta] = useState(false);
+    const headerRef = React.useRef(null);
 
 	return (
 
@@ -567,12 +568,13 @@ const ReactTable = (props) => {
 											>
 
 												{(provided, snapshot) => {
+                                                    const colId = column.id.replace(/ /g,"_");
 													return (
 
 														<th
 															{...column.getHeaderProps(column.getSortByToggleProps())}
 															className={classes.table__menu__item}
-
+															data-col-id={colId}
 														>
 															<div
 
@@ -583,6 +585,7 @@ const ReactTable = (props) => {
 																<div className={classes.table__header}
 																>
 																	<div
+																			ref={headerRef}
 																		style={{
 																			width: 'max-content',
 																			...dragDropStyle(
@@ -596,7 +599,7 @@ const ReactTable = (props) => {
 																	{
 
 																		(<DropDown
-
+                                                                            width={headerRef && headerRef.current ? headerRef.current.clientWidth : 120}
 																			ID={incrementId()}
 																			length={column.length}
 																			columns={columns[Id]}
