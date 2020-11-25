@@ -478,7 +478,7 @@ const ReactTable = (props) => {
 	const incrementId = () => {
 		if (Id === 5)
 			Id = -1;
-		Id = Id + 0.5;
+		Id = Id + 1;
 		return Id
 	};
 	const setSearchBoxSize = (code) => {
@@ -528,9 +528,32 @@ const ReactTable = (props) => {
 	const [a, seta] = useState(false);
 	const headerRef = React.useRef(null);
 
+	useEffect(() => {
+		let table=document.getElementById('table');
+		table.onscroll = (e) => {
+			allColumns.forEach((col, i) => {
+				let head = document.getElementById("column" + col.id);
+				let rect = head.getBoundingClientRect();
+				let drop = document.getElementById('dropDownBTN' + i);
+				drop.style.top = [(rect.top + rect.height / 1.6) + 'px'];
+				drop.style.left = [(rect.left + rect.width / 1.3) + 'px'];
+				console.log(drop)
+				console.log(rect)
+			})
+		}
+		allColumns.forEach((col, i) => {
+			let head = document.getElementById("column" + col.id);
+			let rect = head.getBoundingClientRect();
+			let drop = document.getElementById('dropDownBTN' + i);
+			drop.style.top = [(rect.top + rect.height / 1.6) + 'px'];
+			drop.style.left = [(rect.left + rect.width/1.3) + 'px'];
+			console.log(drop)
+			console.log(rect)
+		})
+	},[])
 	return (
 
-		<div className={classes.Table}>
+		<div  id={'table'} className={classes.Table}>
 			{/* <select onChange={dropDownHandler}>
 				<option>select an option</option>
 				<option value="1000">1,000</option>
@@ -588,6 +611,7 @@ const ReactTable = (props) => {
 													return (
 
 														<th
+															id={'column' + column.id}
 															{...column.getHeaderProps(column.getSortByToggleProps())}
 															className={classes.table__menu__item}
 															data-col-id={colId}
@@ -598,6 +622,7 @@ const ReactTable = (props) => {
 																{...provided.dragHandleProps}
 																ref={provided.innerRef}
 															>
+
 																<div className={classes.table__header}
 																>
 																	<div
@@ -611,24 +636,6 @@ const ReactTable = (props) => {
 
 																		{column.render('Header')}
 																	</div>
-
-																	{
-
-																		(<DropDown
-																			width={headerRef && headerRef.current ? headerRef.current.clientWidth : 120}
-																			ID={incrementId()}
-																			length={column.length}
-																			columns={columns[Id]}
-																			allColumns={columns}
-																			data={dataFiltration(data, Id, column.id)}
-																			hiddenCol={props.columnsToHide}
-																			resetsizing={resetResizing}
-																			groupBy={toggleGroupBy}
-																			localSearchIds={localSearchIds}
-																			searchColumn={searchColumn}
-																			reset={clear}
-																		/>)
-																	}
 																	<div
 																		{...column.getResizerProps()}
 																		className={classes.resizer}
@@ -650,6 +657,24 @@ const ReactTable = (props) => {
 						</DragDropContext>
 					))}
 				</thead>
+				{
+					allColumns.map(column =>
+						<DropDown
+							key={Id}
+							ID={incrementId()}
+							columns={columns[Id]}
+							allColumns={columns}
+							data={dataFiltration(data, Id, column.id)}
+							hiddenCol={props.columnsToHide}
+							resetsizing={resetResizing}
+							groupBy={toggleGroupBy}
+							localSearchIds={localSearchIds}
+							searchColumn={searchColumn}
+							reset={clear}
+						/>
+					)
+
+				}
 				<tbody {...getTableBodyProps()}>
 					<tr className={classes.Search__row}>
 						{localSearchIds.map((element) => (

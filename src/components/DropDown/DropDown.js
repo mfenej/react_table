@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import icon from '../../assets/svg/all.svg';
 import classes from './DropDown.module.css';
 
@@ -17,15 +17,14 @@ const hideAllDropDown = () => {
 let BTNMain = null;
 let BTNSearch = null;
 let BTNCheck = null;
-let toRender = null;
 
-let toReturn = null;
 let BTNNormal = null;
 let BTNValue = null;
 
 
 const DropDown = (props) => {
-
+	const [toRender, setToRender] = useState(null);
+	let toReturn = null;
 	const displayDropDown = (id) => {
 		hideAllDropDown();
 		document.getElementById(`dropDown${id}`).style.display = 'block';
@@ -36,14 +35,14 @@ const DropDown = (props) => {
 		BTNMain = classes.table__menu__item__btn__open;
 		BTNSearch = classes.table__menu__item__btn__closed;
 		BTNCheck = classes.table__menu__item__btn__closed;
-		toRender = <Main
+		setToRender(<Main
 			resetsizing={props.resetsizing}
 			groupBy={props.groupBy}
 			localSearchIds={props.localSearchIds}
 			index={id}
 			otherProps={props}
 			reset={props.reset}
-		/>
+		/>);
 	};
 	const menuBTNS = () => (
 		<div style={{ display: 'flex',overflow:'hidden',borderRadius:'5px' }}>
@@ -90,27 +89,28 @@ const DropDown = (props) => {
 		BTNSearch = classes.table__menu__item__btn__open;
 		BTNCheck = classes.table__menu__item__btn__closed;
 		if (type === 'inp') {
-			toReturn = contentDropSearchInput();
 			BTNNormal = classes.BTN__Search;
 			BTNValue = classes.BTN__SearchDark;
+			toReturn=contentDropSearchInput();
 		} else {
-			toReturn = contentDropSearchValue();
 			BTNNormal = classes.BTN__SearchDark;
 			BTNValue = classes.BTN__Search;
+			toReturn=contentDropSearchValue();
 		}
-		toRender =
-			<React.Fragment>
+		setTimeout(
+			setToRender(<React.Fragment>
 				<button onClick={() => {
-					toReturn = contentDropSearch('inp');
+					toReturn=contentDropSearch('inp');
 				}}
 					className={BTNNormal}>NORMAL</button>
 
 				<button onClick={() => {
-					toReturn = contentDropSearch('val');
+					toReturn=contentDropSearch('val');
 				}}
 					className={BTNValue}>Value</button>
 				{toReturn}
-			</React.Fragment>
+			</React.Fragment>), 1);
+		
 	}
 	const contentDropSearchInput = () => {
 		BTNMain = classes.table__menu__item__btn__closed;
@@ -136,7 +136,7 @@ const DropDown = (props) => {
 		BTNMain = classes.table__menu__item__btn__closed;
 		BTNSearch = classes.table__menu__item__btn__closed;
 		BTNCheck = classes.table__menu__item__btn__open;
-		toRender = <Check allColumns={allColumns} hiddenCol={hiddenCol} />
+		setToRender(<Check allColumns={allColumns} hiddenCol={hiddenCol} />);
 	};
 
 	const toggleHideDropDown = React.useCallback((e) => {
@@ -182,7 +182,6 @@ const DropDown = (props) => {
 					zIndex: '2',
 					borderRadius: '0.4rem',
 					display: 'none',
-					// overflow: 'hidden',
 					fontFamily: 'unset',
 				}}
 			>

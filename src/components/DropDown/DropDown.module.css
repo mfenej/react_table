@@ -6,9 +6,8 @@ button:focus{
 	background-color: transparent;
 	height: min-content;
 	position: absolute;
-	right: -0.2rem;
-	top: 4px;
 	cursor: pointer;
+	z-index: 3;
 }
 
 .table__menu__item__btn:focus {
