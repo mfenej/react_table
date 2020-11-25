@@ -529,26 +529,24 @@ const ReactTable = (props) => {
 	const headerRef = React.useRef(null);
 
 	useEffect(() => {
-		let table=document.getElementById('table');
+		let table = document.getElementById('table');
+		let tRect = table.getBoundingClientRect();
+		console.log(tRect)
 		table.onscroll = () => {
 			allColumns.forEach((col, i) => {
 				let head = document.getElementById("column" + col.id);
 				let rect = head.getBoundingClientRect();
-				let dropBTN = document.getElementById('dropDownBTN' + i);
-				dropBTN.style.top = [(rect.top + rect.height / 4.5) + 'px'];
+				let dropBTN = document.getElementById('dropDownContainer' + i);
+				dropBTN.style.top = [(rect.top + rect.height / 5) + 'px'];
 				dropBTN.style.left = [(rect.left + rect.width / 1.3) + 'px'];
-				console.log(dropBTN)
-				console.log(rect)
 			})
 		}
 		allColumns.forEach((col, i) => {
 			let head = document.getElementById("column" + col.id);
 			let rect = head.getBoundingClientRect();
-			let dropBTN = document.getElementById('dropDownBTN' + i);
-			dropBTN.style.top = [(rect.top + rect.height / 4.5) + 'px'];
+			let dropBTN = document.getElementById('dropDownContainer' + i);
+			dropBTN.style.top = [(rect.top + rect.height / 5) + 'px'];
 			dropBTN.style.left = [(rect.left + rect.width/1.3) + 'px'];
-			console.log(dropBTN)
-			console.log(rect)
 		})
 	},[])
 	return (

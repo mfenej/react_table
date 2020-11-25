@@ -155,7 +155,7 @@ const DropDown = (props) => {
 	
 	document.addEventListener('click', toggleHideDropDown);
 	return (
-		<div
+		<div style={{ position: 'absolute' }}
 			id={`dropDownContainer${props.ID}`}
 		>
 			<button
@@ -176,10 +176,8 @@ const DropDown = (props) => {
 					position: 'absolute',
 					width: '14rem',
 					height: '16.5rem',
-					top: '0',
-					right: "0",
 					backgroundColor: '#3f5b76',
-					zIndex: '2',
+					zIndex: '3',
 					borderRadius: '0.4rem',
 					display: 'none',
 					fontFamily: 'unset',
