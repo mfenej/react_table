@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useBlockLayout, useSortBy, useTable, useResizeColumns, useGroupBy, useExpanded, useColumnOrder } from 'react-table';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { FixedSizeList } from 'react-window';
+
 import * as actions from '../../store/actions/index';
 import DropDown from '../DropDown/DropDown';
 import classes from './ReactTable.module.css';
@@ -16,7 +16,7 @@ let columns = [
 		Header: 'code',
 		className: "code__cell", // className is same as header
 		accessor: 'colCode', // accessor is the "key" in the data
-		sticky: 'left',
+		// sticky: 'left',
 	},
 	{
 		id: 'label',
@@ -113,8 +113,6 @@ const ReactTable = (props) => {
 		}),
 		[]
 	);
-
-	//ids of input fileds for local column search
 
 
 	const displayData = useCallback(
@@ -274,6 +272,7 @@ const ReactTable = (props) => {
 		resetResizing,
 		setColumnOrder,
 		allColumns,
+		state: { groupBy},
 	} = useTable(
 		{
 			columns,
@@ -413,41 +412,6 @@ const ReactTable = (props) => {
 
 		);
 	}
-	const RenderRow = React.useCallback(
-		({ index, style }) => {
-			const row = rows[index];
-			prepareRow(row);
-			return (
-				<tr {...row.getRowProps({ style })}
-				>
-					{row.cells.map((cell) => {
-						return (
-							<td
-								onClick={displayData}
-								{...cell.getCellProps({
-									style: {
-										fontFamily: 'sans-serif',
-										position: 'relative',
-										cursor: 'pointer',
-										textAlign: 'center',
-										fontSize: '1.2rem',
-										fontWeight: '500',
-										lineHeight: '3rem',
-										borderRight: '1px solid #dee1e2',
-										color: '#5e6971',
-									},
-									className: cell.column.className
-								})}
-							>
-								{cell.render('Cell')}
-							</td>
-						);
-					})}
-				</tr>
-			);
-		},
-		[prepareRow, rows, displayData]
-	);
 
 	useEffect(() => {
 		if (props.searchID !== null) {
@@ -528,27 +492,45 @@ const ReactTable = (props) => {
 	const [a, seta] = useState(false);
 	const headerRef = React.useRef(null);
 
+	
 	useEffect(() => {
-		let table = document.getElementById('table');
-		let tRect = table.getBoundingClientRect();
-		console.log(tRect)
-		table.onscroll = () => {
+		const dropdownPositioning = () => {
+			let index = 0;
+			console.log(groupBy)
 			allColumns.forEach((col, i) => {
-				let head = document.getElementById("column" + col.id);
-				let rect = head.getBoundingClientRect();
-				let dropBTN = document.getElementById('dropDownContainer' + i);
-				dropBTN.style.top = [(rect.top + rect.height / 5) + 'px'];
-				dropBTN.style.left = [(rect.left + rect.width / 1.3) + 'px'];
+				let id = col.id
+				console.log(id)
+				if (id !== 'expander') {
+					if(groupBy.includes(id)){
+						id ='expander'
+					}
+					let table = document.getElementById('table');
+					let tRect = table.getBoundingClientRect();
+
+					let head = document.getElementById("column" + id);
+					let drop = document.getElementById('dropDownContainer' + index);
+					if (head !== null) {
+						let rect = head.getBoundingClientRect();
+
+						drop.style.top = [(rect.top + rect.height / 5) + 'px'];
+						drop.style.left = [(rect.left + rect.width / 1.3) + 'px'];
+						if (tRect.width < (rect.left + rect.width / 1.3))
+							drop.style.display = 'none'
+						else
+							drop.style.display = 'block'
+					} else {
+						drop.style.display = 'none'
+					}
+					index++;
+				}
 			})
 		}
-		allColumns.forEach((col, i) => {
-			let head = document.getElementById("column" + col.id);
-			let rect = head.getBoundingClientRect();
-			let dropBTN = document.getElementById('dropDownContainer' + i);
-			dropBTN.style.top = [(rect.top + rect.height / 5) + 'px'];
-			dropBTN.style.left = [(rect.left + rect.width/1.3) + 'px'];
-		})
-	},[])
+		let table = document.getElementById('table');
+		table.onscroll = () => {
+			dropdownPositioning();
+		}
+		dropdownPositioning();
+	});
 	return (
 
 		<div  id={'table'} className={classes.Table}>
@@ -656,8 +638,10 @@ const ReactTable = (props) => {
 					))}
 				</thead>
 				{
-					allColumns.map(column =>
-						<DropDown
+					allColumns.map(column => {
+						console.log(column.id)
+						if (column.id !=='expander')
+						return <DropDown
 							key={Id}
 							ID={incrementId()}
 							columns={columns[Id]}
@@ -665,13 +649,16 @@ const ReactTable = (props) => {
 							data={dataFiltration(data, Id, column.id)}
 							hiddenCol={props.columnsToHide}
 							resetsizing={resetResizing}
-							groupBy={toggleGroupBy}
+							groupBy={() => toggleGroupBy(column.id)}
 							localSearchIds={localSearchIds}
 							searchColumn={searchColumn}
 							reset={clear}
-						/>
+							/>
+						else
+							return null
+					}
 					)
-
+				
 				}
 				<tbody {...getTableBodyProps()}>
 					<tr className={classes.Search__row}>
@@ -690,15 +677,6 @@ const ReactTable = (props) => {
 							</th>
 						))}
 					</tr>
-					{/* <FixedSizeList
-						height={420}
-						itemCount={rows.length}
-						itemSize={30}
-						width={totalColumnsWidth}
-						className={classes.List}
-					>
-						{RenderRow}
-					</FixedSizeList> */}
 					<List
 						width={totalColumnsWidth}
 						height={420}

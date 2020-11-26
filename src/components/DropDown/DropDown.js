@@ -45,7 +45,7 @@ const DropDown = (props) => {
 		/>);
 	};
 	const menuBTNS = () => (
-		<div style={{ display: 'flex',overflow:'hidden',borderRadius:'5px' }}>
+		<div style={{ display: 'flex', overflow: 'hidden', borderRadius: '5px' }}>
 			<button
 				onClick={() => {
 					contentDropMain();
@@ -97,19 +97,18 @@ const DropDown = (props) => {
 			BTNValue = classes.BTN__Search;
 			toReturn=contentDropSearchValue();
 		}
-		setTimeout(
-			setToRender(<React.Fragment>
-				<button onClick={() => {
-					toReturn=contentDropSearch('inp');
-				}}
-					className={BTNNormal}>NORMAL</button>
+		setToRender(<React.Fragment>
+			<button onClick={() => {
+				toReturn = contentDropSearch('inp');
+			}}
+				className={BTNNormal}>NORMAL</button>
 
-				<button onClick={() => {
-					toReturn=contentDropSearch('val');
-				}}
-					className={BTNValue}>Value</button>
-				{toReturn}
-			</React.Fragment>), 1);
+			<button onClick={() => {
+				toReturn = contentDropSearch('val');
+			}}
+				className={BTNValue}>Value</button>
+			{toReturn}
+		</React.Fragment>);
 		
 	}
 	const contentDropSearchInput = () => {
