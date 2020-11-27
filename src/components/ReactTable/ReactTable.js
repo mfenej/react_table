@@ -492,39 +492,39 @@ const ReactTable = (props) => {
 	const [a, seta] = useState(false);
 	const headerRef = React.useRef(null);
 
-	
-	useEffect(() => {
-		const dropdownPositioning = () => {
-			let index = 0;
-			console.log(groupBy)
-			allColumns.forEach((col, i) => {
-				let id = col.id
-				console.log(id)
-				if (id !== 'expander') {
-					if(groupBy.includes(id)){
-						id ='expander'
-					}
-					let table = document.getElementById('table');
-					let tRect = table.getBoundingClientRect();
-
-					let head = document.getElementById("column" + id);
-					let drop = document.getElementById('dropDownContainer' + index);
-					if (head !== null) {
-						let rect = head.getBoundingClientRect();
-
-						drop.style.top = [(rect.top + rect.height / 5) + 'px'];
-						drop.style.left = [(rect.left + rect.width / 1.3) + 'px'];
-						if (tRect.width < (rect.left + rect.width / 1.3))
-							drop.style.display = 'none'
-						else
-							drop.style.display = 'block'
-					} else {
-						drop.style.display = 'none'
-					}
-					index++;
+	const dropdownPositioning = () => {
+		let index = 0;
+		console.log(groupBy)
+		allColumns.forEach((col, i) => {
+			let id = col.id
+			console.log(id)
+			if (id !== 'expander') {
+				if (groupBy.includes(id)) {
+					id = 'expander'
 				}
-			})
-		}
+				let table = document.getElementById('table');
+				let tRect = table.getBoundingClientRect();
+
+				let head = document.getElementById("column" + id);
+				let drop = document.getElementById('dropDownContainer' + index);
+				if (head !== null) {
+					let rect = head.getBoundingClientRect();
+
+					drop.style.top = [(rect.top + rect.height / 5) + 'px'];
+					drop.style.left = [(rect.left + rect.width / 1.3) + 'px'];
+					if (tRect.width < (rect.left + rect.width / 1.3))
+						drop.style.display = 'none'
+					else
+						drop.style.display = 'block'
+				} else {
+					drop.style.display = 'none'
+				}
+				index++;
+			}
+		})
+	}
+	useEffect(() => {
+	
 		let table = document.getElementById('table');
 		table.onscroll = () => {
 			dropdownPositioning();
@@ -654,6 +654,7 @@ const ReactTable = (props) => {
 							groupBy={() => toggleGroupBy(column.id)}
 							localSearchIds={localSearchIds}
 							searchColumn={searchColumn}
+							dropdownPositioning={dropdownPositioning}
 							reset={clear}
 							/>
 						else

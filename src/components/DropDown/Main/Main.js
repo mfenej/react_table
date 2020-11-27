@@ -72,7 +72,7 @@ debugger
         if(headerElement && headerElement !== null){
             headerElement.style.width = `${props.otherProps.width + 100}px`
         }
-
+        props.otherProps.dropdownPositioning();
     }
 
     return <div style={{ height: '100%', backgroundColor: '#354f69' }}>
