@@ -643,6 +643,8 @@ const ReactTable = (props) => {
 						if (column.id !=='expander')
 						return <DropDown
 							key={Id}
+							width={headerRef && headerRef.current ? headerRef.current.clientWidth : 120}
+							length={column.length}
 							ID={incrementId()}
 							columns={columns[Id]}
 							allColumns={columns}
