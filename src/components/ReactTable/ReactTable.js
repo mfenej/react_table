@@ -494,10 +494,8 @@ const ReactTable = (props) => {
 
 	const dropdownPositioning = () => {
 		let index = 0;
-		console.log(groupBy)
 		allColumns.forEach((col, i) => {
 			let id = col.id
-			console.log(id)
 			if (id !== 'expander') {
 				if (groupBy.includes(id)) {
 					id = 'expander'
@@ -639,7 +637,6 @@ const ReactTable = (props) => {
 				</thead>
 				{
 					allColumns.map(column => {
-						console.log(column.id)
 						if (column.id !=='expander')
 						return <DropDown
 							key={Id}
@@ -693,7 +690,6 @@ const ReactTable = (props) => {
 		</div>
 	);
 };
-
 const mapStateToProps = (state) => {
 	return {
 		isDisplayed: state.form.isDisplayed,
